@@ -4,7 +4,7 @@ public class Course {
 	private long c_ID 			= 0;
 	private String title 		= "";
 	private int creditPoints 	= 0;
-	Profesor profesor 			= null;
+	private Profesor profesor 	= null;
 	
 	private static int auto_C_ID = 0;
 	
@@ -13,7 +13,7 @@ public class Course {
 			this.c_ID = auto_C_ID;
 			auto_C_ID++;
 		}else {
-			
+			this.c_ID = c_ID;
 		}
 		setTitle(title);
 		setCreditPoints(creditPoints);
@@ -23,8 +23,8 @@ public class Course {
 		this.c_ID 			= auto_C_ID;
 		auto_C_ID ++;
 		this.title 			= "NULL";
-		this.creditPoints 	= 0;
-		this.profesor 		= null;
+		setCreditPoints(0);
+		setProfesor(null);
 	}
 	
 	//GET
@@ -52,7 +52,7 @@ public class Course {
 	public void setCreditPoints(int creditPoints) {
 		if(creditPoints >= 0) {
 			this.creditPoints = creditPoints;
-		}else {
+		}else{
 			this.creditPoints = 0;
 		}
 		

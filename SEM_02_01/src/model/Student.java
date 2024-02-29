@@ -1,9 +1,9 @@
 package model;
 
 public class Student {
-	private long st_ID = 0;
-	private String name = 		"";
-	private String surname = 	"";
+	private long st_ID 		= 0;
+	private String name 	= "";
+	private String surname 	= "";
 	
 	private static int auto_ST_ID = 0;
 	

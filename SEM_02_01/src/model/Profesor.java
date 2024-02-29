@@ -1,10 +1,10 @@
 package model;
 
 public class Profesor {
-	private long p_ID = 0;
-	private String name = 		"";
-	private String surname = 	"";
-	private Degree degree = 	Degree.OTHER;
+	private long p_ID 		= 0;
+	private String name 	= "";
+	private String surname 	= "";
+	private Degree degree 	= Degree.OTHER;
 	
 	private static int auto_P_ID = 0;
 	
