@@ -1,5 +1,6 @@
 package main;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 import model.Course;
@@ -29,16 +30,90 @@ public class Main {
 		}
 		
 		Courses.add(new Course(-1, "EIGP II", 6, Profesors.get(0)));	
-		Courses.add(new Course(-1, "EIP I", 2, Profesors.get(1)));
+		Courses.add(new Course(-1, "IOS", 1, Profesors.get(0)));
+		Courses.add(new Course(-1, "ANT", 4, Profesors.get(0)));
+		Courses.add(new Course(-1, "EIP I", 4, Profesors.get(1)));
 		for(Course e : Courses) {
 			System.out.println(e.getProfesor());
 		}
 		
 		Grades.add(new Grade(-1, 5, Students.get(0), Courses.get(0)));	
-		Grades.add(new Grade(-1, 3, Students.get(1), Courses.get(1)));
+		Grades.add(new Grade(-1, 6, Students.get(0), Courses.get(1)));
+		Grades.add(new Grade(-1, 6, Students.get(1), Courses.get(0)));
+		Grades.add(new Grade(-1, 9, Students.get(1), Courses.get(1)));
 		for(Grade e : Grades) {
 			System.out.println(e.getStudent());
 		}
+
+		try {
+			System.out.println(averageGrde(Students.get(0)));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+			System.out.println(averageGrdeCourse(Courses.get(1)));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+			System.out.println(profesorCourses(Profesors.get(0)));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 	}
 
+	public static float averageGrde(Student student) throws Exception {
+		if (student == null) throw new Exception("Undefined argument");
+		
+		float sum = 0;
+		float points = 0;
+		
+		for(Grade e : Grades) {
+			if (e.getStudent().equals(student)) {
+				sum = sum + e.getCourse().getCreditPoints()*e.getValue();
+				points = points + e.getCourse().getCreditPoints();
+			}
+		}
+		if (points == 0) {
+			return 0;
+		} else {
+			return sum/points;
+		}
+		
+	}
+	
+	public static float averageGrdeCourse(Course course) throws Exception {
+		if (course == null) throw new Exception("Undefined argument");
+		
+		float sum = 0;
+		float points = 0;
+		
+		for(Grade e : Grades) {
+			if (e.getCourse().equals(course)) {
+				sum = sum + e.getValue();
+				points++;
+			}
+		}
+		if (points == 0) {
+			return 0;
+		} else {
+			return sum/points;
+		}
+		
+	}
+	
+	public static int profesorCourses(Profesor profesor) throws Exception {
+		if (profesor == null) throw new Exception("Undefined argument");
+		
+		int sum = 0;
+		
+		for(Course e : Courses) {
+			if (e.getProfesor().equals(profesor)) {
+				sum++;
+			}
+		}
+		return sum;
+		
+	}
 }
