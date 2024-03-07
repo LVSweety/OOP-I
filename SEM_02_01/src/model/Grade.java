@@ -42,7 +42,11 @@ public class Grade {
 	}
 	//SET
 	public void setValue(int value) {
-		this.value = value;
+		if (value >= 0 && value <= 10) {
+			this.value = value;
+		}else {
+			this.value = 0;
+		}
 	}
 	public void setStudent(Student student) {
 		this.student = student;

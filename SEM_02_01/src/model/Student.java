@@ -52,6 +52,6 @@ public class Student {
 	
 	@Override
 	public String toString() {
-		return "DEF STRING";
+		return "ID:" + st_ID + "\tNAME:" + name + " SURNAME:" + surname;
 	}
 }

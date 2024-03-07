@@ -20,9 +20,9 @@ public class Course {
 		setProfesor(profesor);
 	}
 	public Course() {
-		this.c_ID 			= auto_C_ID;
+		this.c_ID = auto_C_ID;
 		auto_C_ID ++;
-		this.title 			= "NULL";
+		this.title = "NULL";
 		setCreditPoints(0);
 		setProfesor(null);
 	}
@@ -42,7 +42,7 @@ public class Course {
 	}
 	//SET
 	public void setTitle(String title) {
-		if(title != null && title.matches("[A-Z]{1}[a-z]+(( [A-z]+)?)+")){
+		if(title != null && title.matches("[A-Za-z ]+")){
 			this.title = title;
 		}else {
 			this.title = "NULL";
@@ -55,7 +55,6 @@ public class Course {
 		}else{
 			this.creditPoints = 0;
 		}
-		
 	}
 	public void setProfesor(Profesor profestor) {
 		this.profesor = profestor;

@@ -22,9 +22,9 @@ public class Profesor {
 	public Profesor() {
 		this.p_ID = auto_P_ID;
 		auto_P_ID++;
-		this.name 		= "NULL";
-		this.surname 	= "NULL";
-		this.degree 	= Degree.OTHER;
+		this.name = "NULL";
+		this.surname = "NULL";
+		this.degree = Degree.OTHER;
 	}
 	
 	//GET
@@ -61,6 +61,6 @@ public class Profesor {
 	
 	@Override
 	public String toString() {
-		return "DEF STRING";
+		return "ID:" + p_ID + "\tNAME:" + name + " SURNAME:" + surname + " DEGREE:" + degree;
 	}
 }
