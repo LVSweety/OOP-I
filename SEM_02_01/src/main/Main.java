@@ -21,6 +21,24 @@ public class Main {
 		for(Profesor e : Profesors) {
 			System.out.println(e);
 		}
+		
+		Students.add(new Student(-1, "Varis", "Upe"));	
+		Students.add(new Student(-1, "Juris", "Kalns"));
+		for(Student e : Students) {
+			System.out.println(e);
+		}
+		
+		Courses.add(new Course(-1, "EIGP II", 6, Profesors.get(0)));	
+		Courses.add(new Course(-1, "EIP I", 2, Profesors.get(1)));
+		for(Course e : Courses) {
+			System.out.println(e.getProfesor());
+		}
+		
+		Grades.add(new Grade(-1, 5, Students.get(0), Courses.get(0)));	
+		Grades.add(new Grade(-1, 3, Students.get(1), Courses.get(1)));
+		for(Grade e : Grades) {
+			System.out.println(e.getStudent());
+		}
 	}
 
 }

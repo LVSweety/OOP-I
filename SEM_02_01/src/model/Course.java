@@ -8,7 +8,7 @@ public class Course {
 	
 	private static int auto_C_ID = 0;
 	
-	public Course(long c_ID, String title, int creditPoints, String surname, Profesor profesor) {
+	public Course(long c_ID, String title, int creditPoints, Profesor profesor) {
 		if(c_ID == -1) {
 			this.c_ID = auto_C_ID;
 			auto_C_ID++;
