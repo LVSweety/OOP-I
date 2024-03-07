@@ -25,8 +25,10 @@ public class Main {
 		try {
 			createEntry("Varis", "Upe", "839285-985345");
 			createEntry("Juris", "Kalns", "644185-985345");
-			createEntry("Varis", "Upe", "839285-985345");
-			createEntry("Juris", "Kalns", "644185-985345");
+			
+			System.out.println("P:" + retriveEntry("839285-985345"));
+			updateEntry("839285-985345", "Big", "Man");
+			System.out.println("P:" + retriveEntry("839285-985345"));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -123,21 +125,49 @@ public class Main {
 		
 	}
 	
-	public static void createEntry(String name, String surname, String personCode) 
-			throws Exception  {
+	public static void createEntry(String name, String surname, String personCode) throws Exception  {
 		if(name == null || surname == null || personCode == null) {
-			throw new Exception("Problems with input arguments");
+			throw new Exception("Undefined argument");
 		}
 		
 		
-		for(Student tempSt: Students) {
-			if(tempSt.getPersonID().equals(personCode)) {
-				throw new Exception(tempSt.getName() +" " + tempSt.getSurname()
-				+ " is already regeisterd in the system");
+		for(Student e: Students) {
+			if(e.getPersonID().equals(personCode)) {
+				throw new Exception(e.getName() +" " + e.getSurname() + " entry already exists");
 			}
 		}
 		Students.add(new Student(-1, name, surname, personCode));
 		
+	}
+
+	public static void updateEntry(String personCode, String name, String surname) throws Exception  {
+		if(name == null || surname == null || personCode == null) {
+			throw new Exception("Undefined argument");
+		}
+		
+		for(Student e: Students) {
+			if(e.getPersonID().equals(personCode)) {
+				e.setName(name);
+				e.setSurname(surname);
+				return;
+			}
+		}
+		throw new Exception("BRUV NOT FOUND");
+	}
+
+	public static Student retriveEntry(String personCode) throws Exception  {
+		if(personCode == null) {
+			throw new Exception("Undefined argument");
+		}
+		
+		for(Student e: Students) {
+			if(e.getPersonID().equals(personCode)) {
+				return e;
+			}
+		}
+		return null;
 		
 	}
+
+
 }
