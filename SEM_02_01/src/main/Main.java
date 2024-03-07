@@ -16,8 +16,8 @@ public class Main {
 	private static ArrayList<Grade> Grades = new ArrayList<Grade>();
 	
 	public static void main(String[] args) {
-		Profesors.add(new Profesor(-1, "Andris", "Liepa", Degree.MG));	
-		Profesors.add(new Profesor(-1, "Artis", "Virpa", Degree.MG));
+		Profesors.add(new Profesor(-1, "Andris", "Liepa", Degree.MG, "839235-985345"));	
+		Profesors.add(new Profesor(-1, "Artis", "Virpa", Degree.MG, "869235-985345"));
 		for(Profesor e : Profesors) {
 			System.out.println(e);
 		}
@@ -29,6 +29,9 @@ public class Main {
 			System.out.println("P:" + retriveEntry("839285-985345"));
 			updateEntry("839285-985345", "Big", "Man");
 			System.out.println("P:" + retriveEntry("839285-985345"));
+			eraseEntry("839285-985345");
+			System.out.println("P:" + retriveEntry("839285-985345"));
+			createEntry("Varis", "Upe", "839285-985345");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -167,6 +170,18 @@ public class Main {
 		}
 		return null;
 		
+	}
+
+	public static void eraseEntry(String personCode) throws Exception  {
+		if(personCode == null) {
+			throw new Exception("Undefined argument");
+		}
+		
+		for(Student e: Students) {
+			if(e.getPersonID().equals(personCode)) {
+				Students.remove(e);
+			}
+		}
 	}
 
 
