@@ -22,8 +22,15 @@ public class Main {
 			System.out.println(e);
 		}
 		
-		Students.add(new Student(-1, "Varis", "Upe", "839285-985345"));	
-		Students.add(new Student(-1, "Juris", "Kalns", "644185-985345"));
+		try {
+			createEntry("Varis", "Upe", "839285-985345");
+			createEntry("Juris", "Kalns", "644185-985345");
+			createEntry("Varis", "Upe", "839285-985345");
+			createEntry("Juris", "Kalns", "644185-985345");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
 		for(Student e : Students) {
 			System.out.println(e);
 		}
@@ -129,9 +136,7 @@ public class Main {
 				+ " is already regeisterd in the system");
 			}
 		}
-		
-		Student newStudent = new Student(-1, name, surname, personCode);
-		Students.add(newStudent);
+		Students.add(new Student(-1, name, surname, personCode));
 		
 		
 	}
