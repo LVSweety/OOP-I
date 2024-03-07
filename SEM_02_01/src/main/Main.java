@@ -1,6 +1,5 @@
 package main;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 import model.Course;
@@ -23,8 +22,8 @@ public class Main {
 			System.out.println(e);
 		}
 		
-		Students.add(new Student(-1, "Varis", "Upe"));	
-		Students.add(new Student(-1, "Juris", "Kalns"));
+		Students.add(new Student(-1, "Varis", "Upe", "839285-985345"));	
+		Students.add(new Student(-1, "Juris", "Kalns", "644185-985345"));
 		for(Student e : Students) {
 			System.out.println(e);
 		}
@@ -114,6 +113,26 @@ public class Main {
 			}
 		}
 		return sum;
+		
+	}
+	
+	public static void createEntry(String name, String surname, String personCode) 
+			throws Exception  {
+		if(name == null || surname == null || personCode == null) {
+			throw new Exception("Problems with input arguments");
+		}
+		
+		
+		for(Student tempSt: Students) {
+			if(tempSt.getPersonID().equals(personCode)) {
+				throw new Exception(tempSt.getName() +" " + tempSt.getSurname()
+				+ " is already regeisterd in the system");
+			}
+		}
+		
+		Student newStudent = new Student(-1, name, surname, personCode);
+		Students.add(newStudent);
+		
 		
 	}
 }
