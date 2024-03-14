@@ -7,41 +7,41 @@ public class Post {
     private String msg          = "Nothing here yet";
     private LocalDate date      = LocalDate.now();
     private int countOfLikes    = 0;
-
+    
     public Post(String title, String msg) {
         setMessage(msg);
         setTitle(title);
     }
-
-    void setTitle(String title){
+    
+    public void setTitle(String title){
         if (title != null && title.length() < 50){
             this.title = title;
-        }
+        }                                      
     }
 
-    void setMessage(String msg){
+    public void setMessage(String msg){
         if (msg != null && msg.length() > 5){
             this.msg = msg;
         }   
     }
 
-    void addLike(){
+    public void addLike(){
         this.countOfLikes++;
     }
-
-    LocalDate getDate() {
+    
+    public LocalDate getDate() {
         return date;
     }
-
-    int getLikes() {
+    
+    public int getLikes() {
         return countOfLikes;
     }
-
-    String getMessage() {
+    
+    public String getMessage() {
         return msg;
     }
-
-    String getTitle() {
+    
+    public String getTitle() {
         return title;
     }
 
