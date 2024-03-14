@@ -1,0 +1,19 @@
+package model;
+
+public class Person {
+	private long pe_ID 		= 0;
+	private String name 	= "";
+	private String surname 	= "";
+	private String personID = "";
+	
+	private static int auto_PE_ID = 0;
+	
+	public Person (long pe_ID) {
+		if(pe_ID == -1) {
+			this.pe_ID = auto_PE_ID;
+			auto_PE_ID++;
+		}else {
+			this.pe_ID = pe_ID;
+		}
+	}
+}
