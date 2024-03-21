@@ -1,5 +1,7 @@
 package model.user;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import service.IPostService;
@@ -25,7 +27,15 @@ public abstract class User extends GuestUser implements IPostService {
 
     public void setPassword(String password){
         if(password != null && password.length() > 10){
-            this.password = password;
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            this.password = new String(md.digest());
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        } else {
+            this.password = "FAILED_PASSWORD";
         }
     }
 

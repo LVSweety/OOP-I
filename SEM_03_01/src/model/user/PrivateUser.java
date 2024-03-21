@@ -1,6 +1,6 @@
 package model.user;
 
-import java.beans.Visibility;
+import model.Visibility;
 import java.util.ArrayList;
 
 import model.Post;
@@ -45,6 +45,13 @@ public class PrivateUser extends User {
 
     @Override
     public void publishPost(String title, String message, Visibility visibility) {
+        if (title != null && message != null && visibility != null){
+            if (visibility == Visibility.globalPost){
+                publicPosts.add(new Post(title, message));
+            } else {
+                privatePosts.add(new Post(title, message));
+            }
+        }
         
     }
 
