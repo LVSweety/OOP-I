@@ -16,9 +16,11 @@ public class Driver extends Person{
         setExperienceInYears((float) 1.5);
     }
 
-    public Driver(String name, String surname, String personCode) throws Exception {
+    public Driver(String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception {
         super(name, surname, personCode);
         this.dID = auto_dID++;
+        setLicenseNo(licenseNo);
+        setExperienceInYears(experienceInYears);
     }
 
     public void setLicenseNo(String licenseNo) throws Exception {
