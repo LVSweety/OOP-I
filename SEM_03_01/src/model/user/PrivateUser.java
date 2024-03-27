@@ -44,14 +44,17 @@ public class PrivateUser extends User {
     }
 
     @Override
-    public void publishPost(String title, String message, Visibility visibility) {
+    public Post publishPost(String title, String message, Visibility visibility) {
         if (title != null && message != null && visibility != null){
+            Post newPost = new Post(title, message);
             if (visibility == Visibility.globalPost){
-                publicPosts.add(new Post(title, message));
+                publicPosts.add(newPost);
             } else {
-                privatePosts.add(new Post(title, message));
+                privatePosts.add(newPost);
             }
+            return newPost;
         }
+        return null;
         
     }
 
