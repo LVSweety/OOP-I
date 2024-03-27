@@ -50,6 +50,6 @@ public class Driver extends Person{
     }
 
     public String toString() {
-        return "[ " + super.getName() + " , " + super.getSurname() + " , " + super.getPersonCode() + " ]:[" + this.dID + " , " + this.licenseNo + " , " + this.experienceInYears + "]";
+        return "[ " + super.getName() + " , " + super.getSurname() + " , " + super.getPersonCode() + " ]:[ " + this.dID + " , " + this.licenseNo + " , " + this.experienceInYears + " ]";
     }
 }

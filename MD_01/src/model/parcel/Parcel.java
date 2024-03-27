@@ -1,6 +1,7 @@
 package model.parcel;
 
 import java.time.LocalDateTime;
+import java.util.*; 
 
 import model.Driver;
 import model.parcel.ParcelSize;
@@ -40,7 +41,8 @@ public class Parcel {
     }
 
     public void setPlannedDelivery(LocalDateTime plannedDelivery) throws Exception {
-        if (plannedDelivery.compareTo(orderCreated) > 1){
+        System.out.println(plannedDelivery.compareTo(this.orderCreated));
+        if (plannedDelivery.compareTo(this.orderCreated) == 1){
             this.plannedDelivery = plannedDelivery;
             return;
         }
@@ -98,5 +100,9 @@ public class Parcel {
             case L -> 4;
             case XL -> 5;
         };
+    }
+
+    public String toString() {
+        return "[ " + this.size + " , " + this.orderCreated + " , " + this.plannedDelivery + " , " + this.isFargile + " , " + this.price + " , " + this.driver + " ]";
     }
 }
