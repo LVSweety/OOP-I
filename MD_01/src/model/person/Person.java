@@ -41,6 +41,16 @@ public class Person {
         throw new IllegalArgumentException("[ERROR]: invalid arguments");
     }
 
+    public String getName() {
+        return name;
+    }
+    public String getPersonCode() {
+        return personCode;
+    }
+    public String getSurname() {
+        return surname;
+    }
+
     public String toString() {
         return "[ "+ this.name + " , " + this.surname + " , " + this.personCode + " ]";
     }
