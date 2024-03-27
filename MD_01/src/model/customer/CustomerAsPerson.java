@@ -14,6 +14,8 @@ public class CustomerAsPerson extends AbstractCustomerAsPerson{
         setCustomerCode();
     }
 
+    
+
     @Override
     public void setCustomerCode() {
         super.customerCode = super.getcID() + "_person_" + super.person.getPersonCode();

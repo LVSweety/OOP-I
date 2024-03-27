@@ -41,7 +41,6 @@ public class Parcel {
     }
 
     public void setPlannedDelivery(LocalDateTime plannedDelivery) throws Exception {
-        System.out.println(plannedDelivery.compareTo(this.orderCreated));
         if (plannedDelivery.compareTo(this.orderCreated) == 1){
             this.plannedDelivery = plannedDelivery;
             return;
