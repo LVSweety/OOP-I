@@ -1,9 +1,14 @@
-`.metadata/
+.metadata/
 
 SEM_03_01/.settings/
 SEM_03_01/bin/
 SEM_03_01/.classpath
 SEM_03_01/.project
+
+MD_01/.settings/
+MD_01/bin/
+MD_01/.classpath
+MD_01/.project
 
 SEM_02_01/.settings/
 SEM_02_01/bin/
