@@ -3,7 +3,8 @@ package main;
 import model.person.Person;
 
 import java.time.LocalDateTime;
-import java.util.*; 
+import java.util.*;
+import java.util.stream.Collectors;
 
 import model.Driver;
 import model.customer.AbstractCustomer;
@@ -21,10 +22,10 @@ public class Main {
     public static void main(String[] args) {
         try {
             createNewDriver("Nile", "Green", "185406-24245", "AA123456", (float)1.7);
-            createNewDriver("John Albert", "Small", "125606-24245", "AA156756", (float)3);
-            createNewDriver("Jeb", "Waffle", "124521-24584", "TD158656", (float)1.4);
-            createNewDriver("Bob", "Wurst", "175426-29764", "GA152566", (float)5);
-            createNewDriver("Dob", "Burst", "180926-29764", "XF152634", (float)5);
+            createNewDriver("John Albert", "Small", "125606-24245", "AA156756", (float)2);
+            createNewDriver("Jeb", "Waffle", "124521-24584", "TD158656", (float)4.7);
+            createNewDriver("Bob", "Wurst", "175426-29764", "GA152566", (float)11);
+            createNewDriver("Dob", "Burst", "180926-29764", "XF152634", (float)9);
             printDrivers();
             System.out.println("---------------------------------");
             System.out.println(retriveDriverByPersonCode("124521-24584"));
@@ -79,6 +80,17 @@ public class Main {
             for (Parcel e : retriveAllParcelsBySize(ParcelSize.X)){
                 System.out.println(e);
             }
+            System.out.println("---------------------------------");
+            System.out.println("1_company_59453567 Pays: " + calculatePriceOfAllCustomerParvelsByCustomerCode("1_company_59453567"));
+            int[] stats = retriveStatisticsOfCustomerParcelsSize("1_company_59453567");
+            System.out.println("X:"+ stats[0] + " S:" + stats[1] + " M:" + stats[2] + " L:" + stats[3] + " XL:" + stats[4]);
+            for (Parcel e : retriveAllParcelsByCustomerCode("1_company_59453567")){
+                System.out.println(e);
+            }
+            System.out.println("---------------------------------");
+            sortDriversByExperience();
+            printDrivers();
+            System.out.println("---------------------------------");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -250,6 +262,55 @@ public class Main {
             }
         }
         return parcels;
+    }
+
+    public static float calculatePriceOfAllCustomerParvelsByCustomerCode(String customerCode){
+        float sum = 0.0f;
+        for (AbstractCustomer e : allCustomers){
+            if ((e.getCustomerCode().matches(customerCode))) {
+                for (Parcel p : e.getParcels()) {
+                    sum += p.getPrice();
+                }
+                return sum;
+            }
+        }
+        throw new IllegalArgumentException("[ERROR]: customer not found");
+    }
+
+    public static int[] retriveStatisticsOfCustomerParcelsSize(String customerCode) throws Exception {
+        int[] stats = {0,0,0,0,0};
+        for (AbstractCustomer e : allCustomers){
+            if ((e.getCustomerCode().matches(customerCode))) {
+                for (Parcel p : e.getParcels()) {
+                    switch (p.getSize()) {
+                        case X: 
+                            stats[0]++;
+                            break;
+                        case S:
+                            stats[1]++;
+                            break;
+                        case M:
+                            stats[2]++;
+                            break; 
+                        case L:
+                            stats[3]++;
+                            break;
+                        case XL:
+                            stats[4]++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                return stats;
+            }
+        }
+        throw new IllegalArgumentException("[ERROR]: customer not found");
+    }
+
+    public static void sortDriversByExperience(){
+        Comparator<Driver> compareByExperience = Comparator.comparing(Driver::getExperienceInYears);
+        allDrivers = allDrivers.stream().sorted(compareByExperience).collect(Collectors.toCollection(ArrayList::new));
     }
 }
 
