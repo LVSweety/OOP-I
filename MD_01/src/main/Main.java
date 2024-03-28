@@ -54,16 +54,16 @@ public class Main {
             }
             System.out.println("---------------------------------");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
-            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.S, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(2), ParcelSize.S, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, true, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
-            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(2), ParcelSize.XL, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "3_person_867857-58345");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, true, retriveDriverByPersonCode("175426-29764"), "3_person_867857-58345");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("175426-29764"), "3_person_867857-58345");
-            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(2), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, true, retriveDriverByPersonCode("124521-24584"), "1_company_59453567");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("124521-24584"), "1_company_59453567");
-            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(2), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, false, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
@@ -89,6 +89,7 @@ public class Main {
             sortDriversByExperience();
             printDrivers();
             System.out.println("---------------------------------");
+            System.out.println("Parcels for today: " + calculateHowManyParcelsTodayDeliveredToSpecificCity(City.LIEPAJA));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -311,6 +312,25 @@ public class Main {
         allDrivers = allDrivers.stream().sorted(compareByExperience).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public static int calculateHowManyParcelsTodayDeliveredToSpecificCity(City city) {
+        int count = 0;
+        for (AbstractCustomer e : allCustomers){
+            for ( Parcel p : e.getParcels() ){
+                if (p.getPlannedDelivery().getDayOfWeek() == LocalDateTime.now().getDayOfWeek().plus(1)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void generateCustomerAsPersonAndParcel() throws Exception {
+
+    }
+
+    public static void generateCustomerAsCompanyAndParcel() throws Exception {
+
+    }
 
 }
 

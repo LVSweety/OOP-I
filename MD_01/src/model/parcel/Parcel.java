@@ -39,7 +39,7 @@ public class Parcel {
     }
 
     public void setPlannedDelivery(LocalDateTime plannedDelivery) throws Exception {
-        if (plannedDelivery.compareTo(this.orderCreated) == 1){
+        if (plannedDelivery.compareTo(this.orderCreated) > 0){
             this.plannedDelivery = plannedDelivery;
             return;
         }
