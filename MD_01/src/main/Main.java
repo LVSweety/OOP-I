@@ -54,7 +54,31 @@ public class Main {
                 System.out.println(e);
             }
             System.out.println("---------------------------------");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.S, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
             createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, true, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("124521-24584"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, true, retriveDriverByPersonCode("175426-29764"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("175426-29764"), "3_person_867857-58345");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, true, retriveDriverByPersonCode("124521-24584"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("124521-24584"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.X, false, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.XL, false, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
+            createNewParcelForCustomer(LocalDateTime.now().plusDays(1), ParcelSize.L, true, retriveDriverByPersonCode("175426-29764"), "1_company_59453567");
+            for (Parcel e : retriveAllParcelsByCustomerCode("3_person_867857-58345")){
+                System.out.println(e);
+            }
+            System.out.println("---------------------------------");
+            for (Parcel e : retriveAllParcelsByCity(City.LIEPAJA)){
+                System.out.println(e);
+            }
+            System.out.println("---------------------------------");
+            for (Parcel e : retriveAllParcelsBySize(ParcelSize.X)){
+                System.out.println(e);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -179,6 +203,54 @@ public class Main {
         }
         throw new IllegalArgumentException("[ERROR]: customer not found");
     } 
+
+    public static ArrayList<Parcel> retriveAllParcelsByCustomerCode(String customerCode) throws Exception {
+        for (AbstractCustomer e : allCustomers){
+            if ((e.getCustomerCode().matches(customerCode))) {
+                return e.getParcels();
+            }
+        }
+        throw new IllegalArgumentException("[ERROR]: customer not found");
+    }
+
+    public static ArrayList<Parcel> retriveAllParcelsByDriverPersonCode(String personCode) throws Exception {
+        if (personCode == null || !(personCode.matches("[0-9]{6}-[0-9]{5}"))) {
+            throw new IllegalArgumentException("[ERROR]: invalid arguments");
+        }
+        ArrayList<Parcel> parcels = new ArrayList<Parcel>();
+        for (AbstractCustomer e : allCustomers){
+            for (Parcel p : e.getParcels()) {
+                if (p.getDriver().getPersonCode().matches(personCode)) {
+                    parcels.add(p);
+                }
+            }
+        }
+        return parcels;
+    }
+
+    public static ArrayList<Parcel> retriveAllParcelsByCity(City city) throws Exception {
+        ArrayList<Parcel> parcels = new ArrayList<Parcel>();
+        for (AbstractCustomer e : allCustomers){
+            if (e.getAddress().getCity() == city) {
+                for (Parcel p : e.getParcels()) {
+                        parcels.add(p);
+                }
+            }
+        }
+        return parcels;
+    }
+
+    public static ArrayList<Parcel> retriveAllParcelsBySize(ParcelSize size) throws Exception {
+        ArrayList<Parcel> parcels = new ArrayList<Parcel>();
+        for (AbstractCustomer e : allCustomers){
+            for (Parcel p : e.getParcels()) {
+                if (p.getSize() == size) {
+                    parcels.add(p);
+                }
+            }
+        }
+        return parcels;
+    }
 }
 
 
