@@ -1,7 +1,5 @@
 package model.parcel;
 
-import model.parcel.City;
-
 public class Address {
     private City city;
     private String streetOrHouseTitle;

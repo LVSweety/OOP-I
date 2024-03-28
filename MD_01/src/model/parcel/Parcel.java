@@ -1,10 +1,8 @@
 package model.parcel;
 
 import java.time.LocalDateTime;
-import java.util.*; 
 
 import model.Driver;
-import model.parcel.ParcelSize;
 
 public class Parcel {
     private ParcelSize size;
