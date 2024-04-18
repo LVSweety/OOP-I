@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+        </tr>
+            <tr th:each="product : ${data}">
+            <td th:text="${product.getTitle()}"></td>
+            <td th:text="${product.getDescription()}"></td>
+        </tr>
+    <table>
+</head>
+
+<body>
+  
+</body>
