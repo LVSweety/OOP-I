@@ -125,7 +125,44 @@ public class FirstController {
 		return "error-page";
 	}
 	
+	@GetMapping("product/update/{id}")
+	public String getProductUpdate(@PathVariable("id") int id, Model model) {
+		try {
+			Product updatedProduct = crudService.retrieveById(id);
+			model.addAttribute("product", updatedProduct);
+			return "product-update-page";
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";
+		}
+	}
 	
+	@PostMapping("/product/update/{id}")
+	public String postProductUpdate(@Valid Product product, BindingResult result, @PathVariable("id") int id) {
+		if(result.hasErrors()) {
+			return "product-update-page";
+		}else{
+			try {
+				crudService.updateById(id, product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
+				return "redirect:/product/all";
+			} catch (Exception e) {
+			
+				return "redirect:/error";
+			}
+		}
+	}
+
+	@GetMapping("product/yeet/{id}")
+	public String getProductYeet(@PathVariable("id") int id, Model model) {
+		try {
+			crudService.deleteById(id);
+			return "redirect:/product/all";
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";
+		}
+	}
+
 	
 	
 	
