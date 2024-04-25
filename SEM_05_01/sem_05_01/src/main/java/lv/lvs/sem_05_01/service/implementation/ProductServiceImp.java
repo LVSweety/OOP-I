@@ -113,9 +113,9 @@ public class ProductServiceImp implements ICRUDProductService, IFilterProductSer
 			throw new Exception("Product list is empty");
 		
 		
-		//float result = productRepo.calculateTotalValueFromDB();
+		float result = productRepo.calculateTotalValueFromDB();
 		
-		return 0;
+		return result;
 	}
 
 }
