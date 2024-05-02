@@ -9,6 +9,16 @@
             "projectName": "sem_05_01",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Sem0601Application<sem_06_01>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "lv.lvs.sem_06_01.Sem0601Application",
+            "projectName": "sem_06_01",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
