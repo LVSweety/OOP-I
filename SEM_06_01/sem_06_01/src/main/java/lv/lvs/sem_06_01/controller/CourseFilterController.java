@@ -22,7 +22,7 @@ public class CourseFilterController {
     private ICourseFilterService courseService;
 
     @GetMapping("/elc/{param}")
-    public String getCourseFilterByCp(@PathVariable("param") int elc, Model model) {
+    public String getCourseFilterByElc(@PathVariable("param") int elc, Model model) {
         try {
             model.addAttribute("data", courseService.selectCoursesByElc(elc));
             model.addAttribute("msg", "FILTER BY ELC");
@@ -32,6 +32,28 @@ public class CourseFilterController {
             return "ERROR";
         }
     }
+
+    @GetMapping("/prof/{param}")
+    public String getCourseFilterByProfesorID(@PathVariable("param") int id, Model model) {
+        try {
+            model.addAttribute("data", courseService.selectCoursesByProfessorId(id));
+            model.addAttribute("msg", "FILTER BY PROFESOR");
+            return "FilterCourse";  
+        } catch (Exception e) {
+            System.err.println(e);
+            return "ERROR";
+        }
+    }
     
-    
+    @GetMapping("/student/{param}")
+    public String getCourseFilterByStudentID(@PathVariable("param") int id, Model model) {
+        try {
+            model.addAttribute("data", courseService.selectCoursesByStudentId(id));
+            model.addAttribute("msg", "FILTER BY STUDENT");
+            return "FilterCourse";  
+        } catch (Exception e) {
+            System.err.println(e);
+            return "ERROR";
+        }
+    }
 }
