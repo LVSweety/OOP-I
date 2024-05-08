@@ -1,5 +1,7 @@
 package lv.lvs.backend.model.person;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -39,10 +41,12 @@ public class Person {
 
     @OneToOne(mappedBy = "person")
 	@ToString.Exclude
+	@JsonBackReference
 	private Driver driver;
 
     @OneToOne(mappedBy = "person")
 	@ToString.Exclude
+	@JsonBackReference
 	private PrivateCustomer privateCustomer;
 
     public Person(String name, String surname, String personCode){

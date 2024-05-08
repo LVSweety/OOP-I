@@ -2,6 +2,8 @@ package lv.lvs.backend.model.parcel;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -43,6 +45,7 @@ public class Parcel {
 
     @ManyToOne
     @JoinColumn(name = "IdD")
+    @JsonManagedReference
 	private Driver driver;
 
     @ManyToOne

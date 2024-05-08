@@ -2,6 +2,9 @@ package lv.lvs.backend.model.driver;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -32,10 +35,12 @@ public class Driver {
 
     @OneToOne
     @JoinColumn(name = "IdP")
+    @JsonManagedReference
     private Person person;
 
     @OneToMany(mappedBy = "driver")
     @ToString.Exclude
+    @JsonBackReference
 	private Collection<Parcel> parcels;
 
     public Driver(float experienceInYears, String licenseNo, Person person) {

@@ -2,6 +2,8 @@ package lv.lvs.backend.model.customer;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -33,6 +35,7 @@ public class PrivateCustomer {
 
     @OneToOne
     @JoinColumn(name = "IdP")
+    @JsonManagedReference
     private Person person;
 
     @ManyToOne

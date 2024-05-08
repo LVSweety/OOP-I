@@ -1,9 +1,13 @@
 package lv.lvs.backend.repo;
 
+import java.util.ArrayList;
+
 import org.springframework.data.repository.CrudRepository;
 
 import lv.lvs.backend.model.driver.Driver;
 
 public interface IDriverRepo extends CrudRepository<Driver, Integer>{
+
+    Driver findByIdD(int id);
 
 }
