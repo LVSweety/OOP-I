@@ -3,6 +3,8 @@
         <ul>
             <li><router-link to="/">HOME</router-link></li>
             <li><router-link to="/driver">DRIVER</router-link></li>
+            <li><router-link to="/parcel">PARCEL</router-link></li>
+            <li><router-link to="/customer">CUSTOMER</router-link></li>
         </ul>
     </div>
 </template>

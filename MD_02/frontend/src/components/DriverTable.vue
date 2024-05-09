@@ -23,6 +23,9 @@
                 </td>
             </tr>
         </table>
+        <router-link to="/driver/add">
+            <button>ADD</button>
+        </router-link>
     </div>
 </template>
 

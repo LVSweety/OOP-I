@@ -1,5 +1,5 @@
 <template>
-    <div class="driveredit">
+    <div class="driveradd">
         <form>
             <table>
                 <tr>
@@ -7,6 +7,7 @@
                     <td><input type="text" required v-model='driver.name'></td>
                     <p v-if="formValidation.nameFault">Invalid name</p>
                 </tr>
+
                 <tr>
                     <td>SURNAME</td>
                     <td><input type="text" required v-model='driver.surname'></td>
@@ -32,25 +33,18 @@
         <router-link to="/driver">
             <button>CANCEL</button>
         </router-link>
-        <button @click="updateDriver()">SAVE</button>
-        <button @click="removeDriver(driver.idD)">REMOVE</button>
+        <button @click="addDriver()">SAVE</button>
     </div>
 </template>
 
-<script setup>
-import { watch } from 'vue'
-import { useRoute } from 'vue-router'
-</script>
-
 <script>
 export default {
-    name: 'DriverEdit',
+    name: 'DriverAdd',
     components: {
     },
     data() {
         return {
             driver: {
-                idD: 0,
                 experienceInYears: 0.0,
                 licenseNo: "",
                 name: "",
@@ -67,31 +61,8 @@ export default {
             }
         }
     },
-    mounted() {
-        const route = useRoute()
-        this.driver.idD = route.params.id
-        fetch('/api/driver/show?id=' + this.driver.idD)
-            .then(res => res.json())
-            .then(data => {
-                if (data[0] == null) {
-                    this.$router.push({ name: 'PageNotFound', params: { catchAll: " " } })
-                    return;
-                }
-                this.$data.driver.name = data[0].person.name
-                this.$data.driver.surname = data[0].person.surname
-                this.$data.driver.personCode = data[0].person.personCode
-                this.$data.driver.licenseNo = data[0].licenseNo
-                this.$data.driver.experienceInYears = data[0].experienceInYears
-            })
-            .catch(err => console.log(err.message));
-    },
     methods: {
-        removeDriver(id) {
-            fetch('/api/driver/remove?id=' + id)
-                .catch(err => console.log(err.message));
-            this.$router.push({ name: 'driver' })
-        },
-        updateDriver() {
+        addDriver() {
             this.formValidation.fault = false
             this.formValidation.nameFault = false
             this.formValidation.surnameFault = false
@@ -127,8 +98,7 @@ export default {
             };
 
             if (!this.formValidation.fault) {
-                console.log("updating")
-                fetch('/api/driver/update', requestOptions)
+                fetch('/api/driver/add', requestOptions)
                     .then(res => res.json())
                     .then(data => {
                         if (data.status != 0) {
@@ -148,7 +118,7 @@ export default {
 </script>
 
 <style>
-.driveredit p {
+.driveradd p {
     margin: 0px;
 }
 </style>

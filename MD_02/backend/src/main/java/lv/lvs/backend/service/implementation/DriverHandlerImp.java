@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import lv.lvs.backend.model.driver.Driver;
 import lv.lvs.backend.model.parcel.Parcel;
+import lv.lvs.backend.model.person.Person;
 import lv.lvs.backend.repo.IDriverRepo;
 import lv.lvs.backend.repo.IParcelRepo;
 import lv.lvs.backend.repo.IPersonRepo;
@@ -51,15 +52,45 @@ public class DriverHandlerImp implements IDriverHandlerService{
     }
 
     @Override
-    public void insertNewDriver(Driver driver) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insertNewDriver'");
+    public void insertNewDriver(String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception {
+        Driver driver = driverRepo.findByLicenseNo(licenseNo);
+        Person person = personRepo.findByPersonCode(personCode);
+        if (driver == null) {
+            if (person == null) {
+                person = new Person(name, surname, personCode);
+                personRepo.save(person);
+                driver = new Driver(experienceInYears, licenseNo, person);
+                driverRepo.save(driver);
+                return;
+            } else {
+                driver = driverRepo.findByPersonIdP(person.getIdP());
+                if (driver == null) {
+                    driver = new Driver(experienceInYears, licenseNo, person);
+                    driverRepo.save(driver);
+                    return;
+                }
+                throw new InstantiationException();
+            }
+        } 
+        throw new InstantiationException();
     }
 
     @Override
-    public void updateDriverByID(int id, Driver driver) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateDriverByID'");
+    public void updateDriverByID(int id, String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception {
+        Driver driver = driverRepo.findByIdD(id);
+        if (driver != null) {
+            Person person = driver.getPerson();
+            person.setName(name);
+            person.setSurname(surname);
+            person.setPersonCode(personCode);
+            personRepo.save(person);
+            driver.setLicenseNo(licenseNo);
+            driver.setExperienceInYears(experienceInYears);
+            driverRepo.save(driver);
+            return;
+        }
+        throw new FileNotFoundException();
     }
 
+   
 }

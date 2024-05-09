@@ -10,4 +10,8 @@ public interface IDriverRepo extends CrudRepository<Driver, Integer>{
 
     Driver findByIdD(int id);
 
+    Driver findByLicenseNo(String licenseNo);
+
+    Driver findByPersonIdP(int idP);
+
 }
