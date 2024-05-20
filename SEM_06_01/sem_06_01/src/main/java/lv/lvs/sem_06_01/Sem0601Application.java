@@ -40,8 +40,8 @@ public class Sem0601Application {
 				profRepo.save(p1);
 				profRepo.save(p2);
 				
-				Course c1 = new Course("JAVA", 4, p1);
-				Course c2 = new Course("Algoritmu teorija", 2, p2);
+				Course c1 = new Course("JAVA", 4, p1, p2);
+				Course c2 = new Course("Algoritmu teorija", 2, p1);
 				courseRepo.save(c1);
 				courseRepo.save(c2);
 				
@@ -51,7 +51,13 @@ public class Sem0601Application {
 				grRepo.save(gr1);
 				grRepo.save(gr2);
 				grRepo.save(gr3);
+
+				p1.addCourse(c1);
+				p2.addCourse(c1);
+				p1.addCourse(c2);
 				
+				profRepo.save(p1);
+				profRepo.save(p2);
 			}
 		};
 	}

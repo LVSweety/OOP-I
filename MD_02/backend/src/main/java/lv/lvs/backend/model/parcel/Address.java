@@ -2,6 +2,8 @@ package lv.lvs.backend.model.parcel;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -37,10 +39,12 @@ public class Address {
 
     @OneToMany(mappedBy = "address")
     @ToString.Exclude
+    @JsonBackReference
 	private Collection<PrivateCustomer> customers;
 
     @OneToMany(mappedBy = "address")
     @ToString.Exclude
+    @JsonBackReference
 	private Collection<CompanyCustomer> companyCustomers;
 
     public Address(City city, String streetOrHouseTitle, int houseNo) {

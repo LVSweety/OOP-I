@@ -2,6 +2,7 @@ package lv.lvs.backend.model.customer;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -40,10 +41,12 @@ public class PrivateCustomer {
 
     @ManyToOne
     @JoinColumn(name = "IdA")
+    @JsonManagedReference
 	private Address address;
 
     @OneToMany(mappedBy = "privateCustomer")
     @ToString.Exclude
+    @JsonBackReference
 	private Collection<Parcel> parcels;
 
     public PrivateCustomer(String phoneNo, Person person, Address address) {

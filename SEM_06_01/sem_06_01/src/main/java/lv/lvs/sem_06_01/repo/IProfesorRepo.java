@@ -6,4 +6,8 @@ import lv.lvs.sem_06_01.model.Profesor;
 
 public interface IProfesorRepo extends CrudRepository<Profesor, Integer>{
 
+    Profesor findByIdP(int id);
+
+    boolean existsByIdP(int id);
+
 }

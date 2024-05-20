@@ -50,10 +50,12 @@ public class Parcel {
 
     @ManyToOne
     @JoinColumn(name = "IdPC")
+    @JsonManagedReference
 	private PrivateCustomer privateCustomer;
     
     @ManyToOne
     @JoinColumn(name = "IdCC")
+    @JsonManagedReference
 	private CompanyCustomer companyCustomer;
 
     public Parcel(boolean isFargile, ParcelSize parcelSize, LocalDateTime plannedDelivery, Driver driver, PrivateCustomer privateCustomer, CompanyCustomer companyCustomer){

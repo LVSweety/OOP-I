@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import lv.lvs.sem_06_01.model.Course;
 
 public interface ICourseFilterService {
+
+	public abstract ArrayList<Course> selectAllCourses() throws Exception;
 	
 	public abstract ArrayList<Course> selectCoursesByElc(int elc) throws Exception;
 	
@@ -12,8 +14,6 @@ public interface ICourseFilterService {
 	
 	public abstract ArrayList<Course> selectCoursesByStudentId(int id) throws Exception;
 	
-
+	public abstract float calculateAVGGradeInCourse(int id) throws Exception;
 	
-
-
 }

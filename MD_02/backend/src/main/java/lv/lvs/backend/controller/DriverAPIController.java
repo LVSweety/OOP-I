@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lv.lvs.backend.model.communicationsInterfaces.DriverCreate;
+import lv.lvs.backend.model.communicationsInterfaces.DriverShort;
 import lv.lvs.backend.model.communicationsInterfaces.DriverUpdate;
 import lv.lvs.backend.model.driver.Driver;
 import lv.lvs.backend.service.IDriverHandlerService;
@@ -35,6 +36,24 @@ public class DriverAPIController {
         }
     }
 
+    @GetMapping("/show/short")
+    List<DriverShort> getAllDriverShort(Model model) {
+        try {
+            return driverService.sellectAllDriverShort();
+        } catch (Exception e) {
+            return new ArrayList<DriverShort>();
+        }
+    }
+
+    @GetMapping("/show/bind")
+    List<Driver> getAllDriversBindings(Model model) {
+        try {
+            return driverService.sellectAllDriver();
+        } catch (Exception e) {
+            return new ArrayList<Driver>();
+        }
+    }
+
     @GetMapping("/show")
     List<Driver> getDriverByID(@RequestParam("id") int id, Model model) {
         try {
@@ -47,7 +66,7 @@ public class DriverAPIController {
     }
 
     @GetMapping("/remove")
-    List<Driver> gatDriverByID(@RequestParam("id") int id, Model model) {
+    List<Driver> removeDriverByID(@RequestParam("id") int id, Model model) {
         try {
             Driver result = driverService.sellectDriverByID(id);
             if (result == null)

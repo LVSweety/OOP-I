@@ -1,10 +1,16 @@
 package lv.lvs.sem_06_01.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -46,13 +52,21 @@ public class Profesor {
     @NotNull
     private Degree degree;
     
-	@OneToOne(mappedBy = "profesor")
+	@ManyToMany(mappedBy = "profesors")
 	@ToString.Exclude
-	private Course course;
+	private Collection<Course> courses = new ArrayList<Course>();
 
     public Profesor(String name, String surname, Degree degree) {
         setName(name);
         setSurname(surname);
         setDegree(degree);
+    }
+
+    public void addCourse(Course course) {
+        if(!courses.contains(course)) courses.add(course);
+    }
+
+    public void removeCourse(Course course) {
+        if (courses.contains(course)) courses.remove(course);
     }
 }

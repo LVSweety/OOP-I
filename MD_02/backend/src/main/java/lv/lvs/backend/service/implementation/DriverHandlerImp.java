@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lv.lvs.backend.model.communicationsInterfaces.CustomerShort;
+import lv.lvs.backend.model.communicationsInterfaces.DriverShort;
+import lv.lvs.backend.model.customer.CompanyCustomer;
+import lv.lvs.backend.model.customer.PrivateCustomer;
 import lv.lvs.backend.model.driver.Driver;
 import lv.lvs.backend.model.parcel.Parcel;
 import lv.lvs.backend.model.person.Person;
@@ -29,6 +33,18 @@ public class DriverHandlerImp implements IDriverHandlerService{
     public ArrayList<Driver> sellectAllDriver() throws Exception {
         if ( driverRepo.count() == 0 ) throw new FileNotFoundException();
         return (ArrayList<Driver>) driverRepo.findAll();
+    }
+
+    @Override
+    public ArrayList<DriverShort> sellectAllDriverShort() throws Exception {
+        if ( driverRepo.count() == 0 ) throw new FileNotFoundException();
+        ArrayList<DriverShort> result = new ArrayList<DriverShort>();
+        ArrayList<Driver> drivers = (ArrayList<Driver>) driverRepo.findAll();
+        
+        for (Driver e : drivers) {
+            result.add(new DriverShort(e.getIdD(), e.getLicenseNo()));
+        }
+        return result;
     }
 
     @Override
@@ -91,6 +107,4 @@ public class DriverHandlerImp implements IDriverHandlerService{
         }
         throw new FileNotFoundException();
     }
-
-   
 }

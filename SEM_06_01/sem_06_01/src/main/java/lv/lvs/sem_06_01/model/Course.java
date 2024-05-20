@@ -1,5 +1,6 @@
 package lv.lvs.sem_06_01.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.Column;
@@ -8,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -46,17 +49,33 @@ public class Course {
     @Column(name = "ELC")
     private int elc;
 
-    @OneToOne
-    @JoinColumn(name = "IdP")
-    private Profesor profesor;
+    @ManyToMany
+    @JoinTable(name = "CourseOwnership",
+	joinColumns = @JoinColumn(name = "IdC"),
+	inverseJoinColumns = @JoinColumn(name = "IdP"))
+    private Collection<Profesor> profesors = new ArrayList<Profesor>();
 
 	@OneToMany(mappedBy = "course")
 	@ToString.Exclude
 	private Collection<Grade> grades;
 
-    public Course(String title, int elc, Profesor profesor) {
+    public Course(String title, int elc, Profesor ... profesors) {
         setTitle(title);
         setElc(elc);
-        setProfesor(profesor);
+        for(Profesor prof : profesors)
+            addProfesor(prof);
+    }
+
+    public Course(String title, int elc) {
+        setTitle(title);
+        setElc(elc);
+    }
+
+    public void addProfesor(Profesor profesor) {
+        if(!profesors.contains(profesor)) profesors.add(profesor);
+    }
+
+    public void removeProfesor(Profesor profesor) {
+        if (profesors.contains(profesor)) profesors.remove(profesor);
     }
 }

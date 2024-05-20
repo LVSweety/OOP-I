@@ -2,11 +2,14 @@ package lv.lvs.backend.service;
 
 import java.util.ArrayList;
 
+import lv.lvs.backend.model.communicationsInterfaces.DriverShort;
 import lv.lvs.backend.model.driver.Driver;
 
 public interface IDriverHandlerService {
 
     public abstract ArrayList<Driver> sellectAllDriver() throws Exception;
+
+    public abstract ArrayList<DriverShort> sellectAllDriverShort() throws Exception;
     
     public abstract Driver sellectDriverByID(int id) throws Exception;
 

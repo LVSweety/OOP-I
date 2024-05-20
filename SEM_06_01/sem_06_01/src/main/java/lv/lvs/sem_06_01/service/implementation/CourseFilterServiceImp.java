@@ -34,8 +34,8 @@ public class CourseFilterServiceImp implements ICourseFilterService {
     @Override
     public ArrayList<Course> selectCoursesByProfessorId(int id) throws Exception {
         if (id < 0) throw new Exception("WRONG PARAMETERS");
-        if (!profesorRepo.existsById(id)) throw new Exception("404:ENTRY NOT FOUND");
-        ArrayList<Course> result = courseRepo.findByProfesorIdP(id);
+        if (!profesorRepo.existsByIdP(id)) throw new Exception("404:ENTRY NOT FOUND");
+        ArrayList<Course> result = courseRepo.findByProfesors(profesorRepo.findByIdP(id));
         if (result.isEmpty()) throw new Exception("404:NO DATA FOUND");
         return result;
     }
@@ -47,5 +47,18 @@ public class CourseFilterServiceImp implements ICourseFilterService {
         ArrayList<Course> result = courseRepo.findByGradesStudentIdS(id);
         if (result.isEmpty()) throw new Exception("404:NO DATA FOUND");
         return result;
+    }
+
+    @Override
+    public ArrayList<Course> selectAllCourses() throws Exception {
+        ArrayList<Course> result = (ArrayList<Course>) courseRepo.findAll();
+        if (result.isEmpty()) throw new Exception("404:NO DATA FOUND");
+        return result;
+    }
+
+    @Override
+    public float calculateAVGGradeInCourse(int id) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'calculateAVGGradeInCourse'");
     }
 }

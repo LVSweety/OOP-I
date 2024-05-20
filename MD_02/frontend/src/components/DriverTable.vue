@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class = 'driver'>
         <table>
             <tr>
                 <th>ID</th>

@@ -11,7 +11,7 @@ import { useRoute } from 'vue-router'
 <script>
 import DriverEdit from "../components/DriverEdit.vue";
 export default {
-    name: 'DriverView',
+    name: 'DriverEditView',
     components: {
         DriverEdit
     }
