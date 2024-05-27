@@ -5,23 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
-import lv.lvs.backend.model.communicationsInterfaces.CustomerShort;
-import lv.lvs.backend.model.communicationsInterfaces.DriverCreate;
-import lv.lvs.backend.model.communicationsInterfaces.DriverUpdate;
-import lv.lvs.backend.model.driver.Driver;
-import lv.lvs.backend.service.ICustomerHandlerService;
-import lv.lvs.backend.service.IDriverHandlerService;
-import lv.lvs.backend.service.IParcelHandlerService;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import lv.lvs.backend.model.communicationsInterfaces.CustomerShort;
+import lv.lvs.backend.service.ICustomerHandlerService;
+
 
 @RestController
 @RequestMapping("/api/customer")

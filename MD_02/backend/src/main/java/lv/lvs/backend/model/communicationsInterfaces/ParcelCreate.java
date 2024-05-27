@@ -1,4 +1,5 @@
 package lv.lvs.backend.model.communicationsInterfaces;
+
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.*;
@@ -9,19 +10,10 @@ import lv.lvs.backend.model.parcel.ParcelSize;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ParcelUpdate {
-    
-    @Min(1)
-    private int idPA;
-
-    @NonNull
-    private LocalDateTime orderCreated;
+public class ParcelCreate {
 
     @NonNull
     private LocalDateTime plannedDelivery;
-
-    @Min(0)
-    private float price;
 
     @NonNull
     private ParcelSize size;

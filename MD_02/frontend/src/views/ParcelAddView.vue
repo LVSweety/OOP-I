@@ -1,6 +1,6 @@
 <template>
-    <h1>DRIVER ADD</h1>
-    <DriverAdd/>
+    <h1>PARCEL ADD</h1>
+    <ParcelAdd/>
 </template>
 
 <script setup>
@@ -9,11 +9,11 @@ import { useRoute } from 'vue-router'
 </script>
 
 <script>
-import DriverAdd from "../components/DriverAdd.vue";
+import ParcelAdd from "../components/ParcelAdd.vue";
 export default {
-    name: 'DriverAddView',
+    name: 'ParcelAddView',
     components: {
-        DriverAdd
+        ParcelAdd
     }
 }
 </script>

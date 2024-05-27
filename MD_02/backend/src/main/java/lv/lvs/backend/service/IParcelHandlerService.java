@@ -23,7 +23,7 @@ public interface IParcelHandlerService {
 
     public abstract void deleteParcelByID(int id) throws Exception;
 
-    //public abstract void insertNewParcelByCustomerCodeAndDriverId
+    public void insertNewParcel(LocalDateTime plannedDelivery, ParcelSize size, boolean fragile, String customerCode, int idD) throws Exception;
 
     public void updateParcelByID(int id, LocalDateTime orderCreated, LocalDateTime plannedDelivery, float price, ParcelSize size, boolean fragile, String customerCode, int idD) throws Exception;
 

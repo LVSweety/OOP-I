@@ -46,22 +46,24 @@ public class Parcel {
     @ManyToOne
     @JoinColumn(name = "IdD")
     @JsonManagedReference
-	private Driver driver;
+    private Driver driver;
 
     @ManyToOne
     @JoinColumn(name = "IdPC")
     @JsonManagedReference
-	private PrivateCustomer privateCustomer;
-    
+    private PrivateCustomer privateCustomer;
+
     @ManyToOne
     @JoinColumn(name = "IdCC")
     @JsonManagedReference
-	private CompanyCustomer companyCustomer;
+    private CompanyCustomer companyCustomer;
 
-    public Parcel(boolean isFargile, ParcelSize parcelSize, LocalDateTime plannedDelivery, Driver driver, PrivateCustomer privateCustomer, CompanyCustomer companyCustomer){
+    public Parcel(boolean isFargile, ParcelSize parcelSize, LocalDateTime plannedDelivery, Driver driver,
+            PrivateCustomer privateCustomer, CompanyCustomer companyCustomer) {
         setFragile(isFargile);
         setSize(parcelSize);
-        setOrderCreated(LocalDateTime.now());
+        setOrderCreated(LocalDateTime.now()
+                .withNano(0));
         setPlannedDelivery(plannedDelivery);
         setDriver(driver);
         setPrivateCustomer(privateCustomer);
@@ -69,11 +71,11 @@ public class Parcel {
         postProcess();
     }
 
-    private void postProcess(){
+    private void postProcess() {
         if (this.isFragile) {
-            setPrice(size(this.size)*(float)1.99 + (float)2.99);	
+            setPrice(size(this.size) * (float) 1.99 + (float) 2.99);
         } else {
-            setPrice(size(this.size)*(float)1.99);
+            setPrice(size(this.size) * (float) 1.99);
         }
     }
 

@@ -7,6 +7,7 @@ import DriverAddView from '../views/DriverAddView.vue'
 import ParcelView from '../views/ParcelView.vue'
 import CustomerView from '../views/CustomerView.vue'
 import ParcelEditView from '../views/ParcelEditView.vue'
+import ParcelAddView from '../views/ParcelAddView.vue'
 const routes = [
   {
     path: '/',
@@ -42,6 +43,11 @@ const routes = [
     path: '/parcel/:id',
     name: 'ParcelEdit',
     component: ParcelEditView
+  },
+  {
+    path: '/parcel/add',
+    name: 'ParcelAdd',
+    component: ParcelAddView
   },
   {
     path: '/customer',

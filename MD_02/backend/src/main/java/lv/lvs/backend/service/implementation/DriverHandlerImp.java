@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lv.lvs.backend.model.communicationsInterfaces.CustomerShort;
 import lv.lvs.backend.model.communicationsInterfaces.DriverShort;
-import lv.lvs.backend.model.customer.CompanyCustomer;
-import lv.lvs.backend.model.customer.PrivateCustomer;
 import lv.lvs.backend.model.driver.Driver;
 import lv.lvs.backend.model.parcel.Parcel;
 import lv.lvs.backend.model.person.Person;

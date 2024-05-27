@@ -2,7 +2,6 @@ package lv.lvs.backend.service.implementation;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -95,7 +94,6 @@ public class ParcelHandlerImp implements IParcelHandlerService {
 
     @Override
     public ArrayList<Parcel> selectAllParcelDeliveredToCity(City city) throws Exception {
-        // System.out.println(city.ordinal());
         ArrayList<Parcel> result = parcelRepo.findByCity(city.ordinal());
         if (result == null)
             throw new FileNotFoundException();
@@ -149,6 +147,7 @@ public class ParcelHandlerImp implements IParcelHandlerService {
             parcel.setFragile(fragile);
 
             parcelRepo.save(parcel);
+            return;
         } else if (customerCode.matches("[0-9]+_person_[0-9]{6}-[0-9]{5}")) {
             Parcel parcel = parcelRepo.findByIdPA(id);
             PrivateCustomer customer = privateRepo.findByCustomerCode(customerCode);
@@ -171,9 +170,30 @@ public class ParcelHandlerImp implements IParcelHandlerService {
             parcel.setFragile(fragile);
 
             parcelRepo.save(parcel);
+            return;
         }
-        
+        throw new IOException(); 
+    }
 
-
+    @Override
+    public void insertNewParcel(LocalDateTime plannedDelivery, ParcelSize size, boolean fragile, String customerCode, int idD) throws Exception {
+        if (customerCode.matches("[0-9]+_company_LV[0-9]{11}")) {
+            CompanyCustomer customer = companyRepo.findByCustomerCode(customerCode);
+            Driver driver = driverRepo.findByIdD(idD);
+            if (driver == null || customer == null) 
+                throw new IOException(); 
+            Parcel parcel = new Parcel(fragile, size, plannedDelivery, driver, null, customer);
+            parcelRepo.save(parcel);
+            return;
+        } else if (customerCode.matches("[0-9]+_person_[0-9]{6}-[0-9]{5}")) {
+            PrivateCustomer customer = privateRepo.findByCustomerCode(customerCode);
+            Driver driver = driverRepo.findByIdD(idD);
+            if (driver == null || customer == null) 
+                throw new IOException(); 
+            Parcel parcel = new Parcel(fragile, size, plannedDelivery, driver, customer, null);
+            parcelRepo.save(parcel);
+            return;
+        }
+        throw new IOException(); 
     }
 }
