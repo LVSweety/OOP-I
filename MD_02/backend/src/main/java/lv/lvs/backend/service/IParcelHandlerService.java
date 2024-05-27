@@ -1,9 +1,11 @@
 package lv.lvs.backend.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import lv.lvs.backend.model.parcel.City;
 import lv.lvs.backend.model.parcel.Parcel;
+import lv.lvs.backend.model.parcel.ParcelSize;
 
 public interface IParcelHandlerService {
     
@@ -23,7 +25,7 @@ public interface IParcelHandlerService {
 
     //public abstract void insertNewParcelByCustomerCodeAndDriverId
 
-    //public abstract void updateParcelDriverByParcelIdAndDriverId
+    public void updateParcelByID(int id, LocalDateTime orderCreated, LocalDateTime plannedDelivery, float price, ParcelSize size, boolean fragile, String customerCode, int idD) throws Exception;
 
     public abstract float calculateIncomeOfParcelsByCustomerId(int idPC, int idCC) throws Exception;
 

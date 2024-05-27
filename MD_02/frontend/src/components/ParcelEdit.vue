@@ -57,7 +57,7 @@
         <router-link to="/parcel">
             <button>CANCEL</button>
         </router-link>
-        <!-- <button @click="updateDriver()">SAVE</button> -->
+        <button @click="updateParcel()">SAVE</button>
         <button @click="removeParcel(parcel.idPA)">REMOVE</button>
     </div>
 </template>
@@ -134,6 +134,29 @@ export default {
                 .catch(err => console.log(err.message));
             this.$router.push({ name: 'parcel' })
         },
+        updateParcel() {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                body: JSON.stringify(this.parcel)
+            };
+
+            if (!this.formValidation.fault) {
+                console.log("updating")
+                fetch('/api/parcel/update', requestOptions)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status != 0) {
+                            this.formValidation.fault = true
+                        }
+                    })
+                    .catch(err => console.log(err.message));
+                this.$router.push({ name: 'parcel' })
+            }
+
+
+
+        }
     }
 }
 </script>

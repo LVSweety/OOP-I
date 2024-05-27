@@ -36,25 +36,43 @@ public class GradeFilterServiceImp implements IGradeFilterService {
         return result;
     }
 
-    @Override
-    public ArrayList<Grade> selectGradesByStudentId(int id) throws Exception {
-        if (id < 0) throw new Exception("WRONG PARAMETERS");
-        if (!studentRepo.existsById(id)) throw new Exception("404:ENTRY NOT FOUND");
-        ArrayList<Grade> result = gradeRepo.findByStudentIdS(id);
-        if (result.isEmpty()) throw new Exception("404:NO DATA FOUND");
-        return result;
-    }
+	@Override
+	public ArrayList<Grade> selectGradesByStudentId(int id) throws Exception {
+		if(id <= 0) throw new Exception("Id should be positive");
+		
+		if(!studentRepo.existsById(id)) throw new Exception("Student with id (" + id + ") doesn't exist");
+		
+		ArrayList<Grade> result = gradeRepo.findByStudentIdS(id);
+		
+		if(result.isEmpty()) throw new Exception("There is no linkage between this student and grades");		
+		
+		return result;
+	}
 
-    @Override
-    public ArrayList<Grade> selectFailedGradesByStudentId(int id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectFailedGradesByStudentId'");
-    }
+	@Override
+	public ArrayList<Grade> selectFailedGradesByStudentId(int id) throws Exception {
+		if(id <= 0) throw new Exception("Id should be positive");
+		
+		if(!studentRepo.existsById(id)) throw new Exception("Student with id (" + id + ") doesn't exist");
 
-    @Override
-    public float calculateAVGGradeInCourseById(int id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calculateAVGGradeInCourseById'");
-    }
+		ArrayList<Grade> result = gradeRepo.findByStudentIdSAndGrvalueLessThan(id, 4);
+		
+		if(result.isEmpty()) throw new Exception("There is no failed grade for this student");		
+		
+		return result;
+	}
+
+	@Override
+	public float calculateAVGGradeInCourseById(int id) throws Exception {
+		if(id <= 0) throw new Exception("Id should be positive");
+		
+		if(!courseRepo.existsById(id)) throw new Exception("Course with id (" + id + ") doesn't exist");
+		
+		float result = gradeRepo.calculateAVGByCourseId(id);
+		
+		if(result==0) throw new Exception("There is no linkage between this course and grades") ;
+		
+		return result;
+	}
 
 }

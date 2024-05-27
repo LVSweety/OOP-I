@@ -88,10 +88,10 @@ public class BackendApplication {
 				cc2.postProcess();
 				companyCustomerRepo.save(cc2);
 
-				Parcel pr1 = new Parcel(true, ParcelSize.L, LocalDateTime.now(), d1, null, cc1);
-				Parcel pr2 = new Parcel(true, ParcelSize.L, LocalDateTime.now(), d1, null, cc2);
-				Parcel pr3 = new Parcel(false, ParcelSize.L, LocalDateTime.now(), d2, pc1, null);
-				Parcel pr4 = new Parcel(true, ParcelSize.L, LocalDateTime.now(), d1,  pc1, null);
+				Parcel pr1 = new Parcel(false, ParcelSize.L, LocalDateTime.now(), d1, null, cc1);
+				Parcel pr2 = new Parcel(true, ParcelSize.S, LocalDateTime.now(), d1, null, cc2);
+				Parcel pr3 = new Parcel(false, ParcelSize.XL, LocalDateTime.now(), d2, pc1, null);
+				Parcel pr4 = new Parcel(true, ParcelSize.M, LocalDateTime.now(), d1,  pc1, null);
 				parcelRepo.save(pr1);
 				parcelRepo.save(pr2);
 				parcelRepo.save(pr3);

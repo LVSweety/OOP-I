@@ -1,13 +1,12 @@
 package lv.lvs.backend.repo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.antlr.v4.runtime.atn.SemanticContext.OR;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import lv.lvs.backend.model.parcel.City;
 import lv.lvs.backend.model.parcel.Parcel;
 
 public interface IParcelRepo extends CrudRepository<Parcel, Integer> {
@@ -35,5 +34,7 @@ public interface IParcelRepo extends CrudRepository<Parcel, Integer> {
             "LEFT JOIN PRIVATE_CUSTOMER pc ON pt.IDPC = pc.IDPC " +
             "WHERE cc.IDCC = :idC OR pc.IDPC = :idP", nativeQuery = true)
     float getIncome(@Param("idP") int idPC, @Param("idC") int idCC);
+
+    ArrayList<Parcel> findByPlannedDeliveryBetween(LocalDateTime withHour, LocalDateTime plusDays);
 
 }

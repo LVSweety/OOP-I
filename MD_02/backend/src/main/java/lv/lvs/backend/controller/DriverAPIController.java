@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lv.lvs.backend.model.communicationsInterfaces.DriverCreate;
-import lv.lvs.backend.model.communicationsInterfaces.DriverShort;
+import lv.lvs.backend.model.communicationsInterfaces.DriverShort; 
 import lv.lvs.backend.model.communicationsInterfaces.DriverUpdate;
 import lv.lvs.backend.model.driver.Driver;
 import lv.lvs.backend.service.IDriverHandlerService;
@@ -27,12 +30,13 @@ public class DriverAPIController {
     @Autowired
     private IDriverHandlerService driverService;
 
+    @SuppressWarnings("rawtypes")
     @GetMapping("/show/all")
-    List<Driver> getAllDrivers(Model model) {
+    ResponseEntity getAllDrivers(Model model) {
         try {
-            return driverService.sellectAllDriver();
+            return new ResponseEntity<>(driverService.sellectAllDriver(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ArrayList<Driver>();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -48,7 +48,7 @@ public class Student {
 	private Collection<Grade> grades;
 
     public Student(String name, String surname){
-        setName(surname);
+        setName(name);
         setSurname(surname);
     }
 }

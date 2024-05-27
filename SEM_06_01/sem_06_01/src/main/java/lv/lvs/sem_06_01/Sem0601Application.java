@@ -24,7 +24,7 @@ public class Sem0601Application {
 
 	@Bean
 	public CommandLineRunner testDatabaseLayer(IProfesorRepo profRepo, IStudentRepo stuRepo, 
-			ICourseRepo courseRepo, IGradeRepo grRepo)
+			ICourseRepo courseRepo, IGradeRepo gradeRepo)
 	{
 		return new CommandLineRunner() {
 			
@@ -32,8 +32,12 @@ public class Sem0601Application {
 			public void run(String... args) throws Exception {
 				Student st1 = new Student("Janis", "Berzins");
 				Student st2 = new Student("Baiba", "Jauka");
+				Student st3 = new Student("Ralfs", "Upe");
+				Student st4 = new Student("Aigars", "Stiga");
 				stuRepo.save(st1);
 				stuRepo.save(st2);
+				stuRepo.save(st3);
+				stuRepo.save(st4);
 				
 				Profesor p1 = new Profesor("Karina", "Skirmante", Degree.MG);
 				Profesor p2 = new Profesor("Vairis", "Caune", Degree.PHP);
@@ -45,12 +49,22 @@ public class Sem0601Application {
 				courseRepo.save(c1);
 				courseRepo.save(c2);
 				
-				Grade gr1 = new Grade(st1, c1, 6);
-				Grade gr2 = new Grade(st1, c2, 9);
-				Grade gr3 = new Grade(st2, c1, 10);
-				grRepo.save(gr1);
-				grRepo.save(gr2);
-				grRepo.save(gr3);
+				Grade g1 = new Grade(st1, c1, 10);
+				Grade g2 = new Grade(st1, c2, 9);
+				Grade g3 = new Grade(st2, c1, 8);
+				Grade g4 = new Grade(st2, c2, 3);
+				Grade g5 = new Grade(st3, c1, 7);
+				Grade g6 = new Grade(st3, c2, 4);
+				Grade g7 = new Grade(st4, c1, 3);
+				Grade g8 = new Grade(st4, c2, 1);
+				gradeRepo.save(g1);
+				gradeRepo.save(g2);
+				gradeRepo.save(g3);
+				gradeRepo.save(g4);
+				gradeRepo.save(g5);
+				gradeRepo.save(g6);
+				gradeRepo.save(g7);
+				gradeRepo.save(g8);
 
 				p1.addCourse(c1);
 				p2.addCourse(c1);

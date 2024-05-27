@@ -6,4 +6,6 @@ import lv.lvs.backend.model.customer.CompanyCustomer;
 
 public interface ICompanyCustomerRepo extends CrudRepository<CompanyCustomer, Integer>{
 
+    CompanyCustomer findByCustomerCode(String customerCode);
+
 }

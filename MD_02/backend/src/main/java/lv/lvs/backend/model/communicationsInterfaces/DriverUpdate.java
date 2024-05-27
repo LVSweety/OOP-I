@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 public class DriverUpdate {
 	
+	@Min(1)
 	private int idD;
 
     @Min(0)
