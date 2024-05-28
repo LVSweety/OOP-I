@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <td>STREET / TITILE</td>
-                        <td><input type="text" required v-model='privateCustomer.streetOrHouseTitle'></td>
+                        <td><input type="text" required v-model='privateCustomer.streetHouseTitle'></td>
                         <!-- <p v-if="formValidation.nameFault">Invalid name</p> -->
                     </tr>
                     <tr>
@@ -54,7 +54,6 @@
                     </tr>
                 </table>
             </form>
-            <p>{{ privateCustomer }}</p>
         </div>
         <div v-if="type === 'C'">
             <form>
@@ -95,7 +94,7 @@
                     </tr>
                     <tr>
                         <td>STREET / TITILE</td>
-                        <td><input type="text" required v-model='companyCustomer.streetOrHouseTitle'></td>
+                        <td><input type="text" required v-model='companyCustomer.streetHouseTitle'></td>
                         <!-- <p v-if="formValidation.nameFault">Invalid name</p> -->
                     </tr>
                     <tr>
@@ -105,7 +104,6 @@
                     </tr>
                 </table>
             </form>
-            <p>{{ companyCustomer }}</p>
         </div>
 
         <router-link to="/customer">
@@ -134,7 +132,7 @@ export default {
                 surname: "",
                 personCode: "",
                 city: "",
-                streetOrHouseTitle: "",
+                streetHouseTitle: "",
                 houseNo: 0
             },
             companyCustomer: {
@@ -144,7 +142,7 @@ export default {
                 regNo: "",
                 title: "",
                 city: "",
-                streetOrHouseTitle: "",
+                streetHouseTitle: "",
                 houseNo: 0
             },
             type: "P",
@@ -175,7 +173,7 @@ export default {
                     this.$data.privateCustomer.surname = data.person.surname
                     this.$data.privateCustomer.personCode = data.person.personCode
                     this.$data.privateCustomer.city = data.address.city
-                    this.$data.privateCustomer.streetOrHouseTitle = data.address.streetOrHouseTitle
+                    this.$data.privateCustomer.streetHouseTitle = data.address.streetHouseTitle
                     this.$data.privateCustomer.houseNo = data.address.houseNo
                 }
                 if (this.type === "C") {
@@ -185,13 +183,13 @@ export default {
                     this.$data.companyCustomer.regNo = data.regNo
                     this.$data.companyCustomer.title = data.title
                     this.$data.companyCustomer.city = data.address.city
-                    this.$data.companyCustomer.streetOrHouseTitle = data.address.streetOrHouseTitle
+                    this.$data.companyCustomer.streetHouseTitle = data.address.streetHouseTitle
                     this.$data.companyCustomer.houseNo = data.address.houseNo
                 }
             })
             .catch(err => {
                 console.log(err.message)
-                //this.$router.push({ name: 'PageNotFound', params: { catchAll: " " } })
+                this.$router.push({ name: 'PageNotFound', params: { catchAll: " " } })
             });
     },
     methods: {
@@ -201,6 +199,8 @@ export default {
         //     this.$router.push({ name: 'Driver' })
         // },
         updateCustomer() {
+            this.$data.formValidation.fault = false
+
             if (this.$data.type == "P") {
                 const requestOptions = {
                     method: 'POST',

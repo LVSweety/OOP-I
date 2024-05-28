@@ -58,10 +58,11 @@ public class CustomerAPIController {
             if (result.hasErrors()) {
                 return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
             } else {
-                System.out.println(customer);
+                customerService.updatePrivateCustomerByID(customer.getId(), customer.getCustomerCode(), customer.getPhoneNo(), customer.getName(), customer.getSurname(), customer.getPersonCode(), customer.getCity(), customer.getStreetHouseTitle(), customer.getHouseNo());
             }
             return new ResponseEntity<>("[{\"status\": 0}]", HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
         }
     }

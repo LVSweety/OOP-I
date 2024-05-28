@@ -27,11 +27,11 @@ public class Address {
     @NotNull
     private City city;
 
-    @Column(name = "streetOrHouseTitle")
+    @Column(name = "streetHouseTitle")
     @NotNull
     @Size(min = 2, max = 100)
     @Pattern(regexp = "[A-Z]{1}[a-z ]+")
-    private String streetOrHouseTitle;
+    private String streetHouseTitle;
 
     @Column(name = "houseNo")
     @Min(0)
@@ -47,9 +47,9 @@ public class Address {
     @JsonBackReference
 	private Collection<CompanyCustomer> companyCustomers;
 
-    public Address(City city, String streetOrHouseTitle, int houseNo) {
+    public Address(City city, String streetHouseTitle, int houseNo) {
         setCity(city);
         setHouseNo(houseNo);
-        setStreetOrHouseTitle(streetOrHouseTitle);
+        setStreetHouseTitle(streetHouseTitle);
     }
 }

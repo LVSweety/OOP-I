@@ -30,9 +30,7 @@ public interface IParcelRepo extends CrudRepository<Parcel, Integer> {
 
     @Query(value = "SELECT SUM(PRICE) " +
             "FROM PARCEL_TABLE pt " +
-            "LEFT JOIN COMPANY_CUSTOMER cc ON pt.IDCC = cc.IDCC " +
-            "LEFT JOIN PRIVATE_CUSTOMER pc ON pt.IDPC = pc.IDPC " +
-            "WHERE cc.IDCC = :idC OR pc.IDPC = :idP", nativeQuery = true)
+            "WHERE pt.IDCC = :idC OR pt.IDPC = :idP", nativeQuery = true)
     float getIncome(@Param("idP") int idPC, @Param("idC") int idCC);
 
     ArrayList<Parcel> findByPlannedDeliveryBetween(LocalDateTime withHour, LocalDateTime plusDays);

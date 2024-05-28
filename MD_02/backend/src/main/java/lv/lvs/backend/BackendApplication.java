@@ -66,8 +66,8 @@ public class BackendApplication {
 				driverRepo.save(d1);
 				driverRepo.save(d2);
 
-				Person p5 = new Person("Aigars", "Liepa", "046821-04927");
-				Person p6 = new Person("Varis", "Upe", "945821-83921");
+				Person p5 = new Person("Aigars", "Liepa", "023749-04927");
+				Person p6 = new Person("Varis", "Upe", "753965-83921");
 				personRepo.save(p5);
 				personRepo.save(p6);
 				PrivateCustomer pc1 = new PrivateCustomer("12345678", p3, a1);

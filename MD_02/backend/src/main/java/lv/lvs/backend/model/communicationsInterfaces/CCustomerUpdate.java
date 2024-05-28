@@ -35,7 +35,7 @@ public class CCustomerUpdate {
     @NotNull
     @Size(min = 2, max = 100)
     @Pattern(regexp = "[A-Z]{1}[a-z ]+")
-    private String streetOrHouseTitle;
+    private String streetHouseTitle;
 
     @Min(0)
     private int houseNo;
