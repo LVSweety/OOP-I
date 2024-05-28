@@ -8,4 +8,6 @@ public interface ICompanyCustomerRepo extends CrudRepository<CompanyCustomer, In
 
     CompanyCustomer findByCustomerCode(String customerCode);
 
+    CompanyCustomer findByIdCC(int id);
+
 }

@@ -6,7 +6,7 @@
 
 
 <script>
-import ParcelTable from "../components/ParcelTable.vue";
+import ParcelTable from "../components/parcel/ParcelTable.vue";
 export default {
     name: 'ParcelView',
     components: {

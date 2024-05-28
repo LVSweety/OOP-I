@@ -17,7 +17,7 @@ import lv.lvs.backend.repo.IPersonRepo;
 import lv.lvs.backend.service.IDriverHandlerService;
 
 @Service
-public class DriverHandlerImp implements IDriverHandlerService{
+public class DriverHandlerImp implements IDriverHandlerService {
 
     @Autowired
     private IParcelRepo parcelRepo;
@@ -28,16 +28,18 @@ public class DriverHandlerImp implements IDriverHandlerService{
 
     @Override
     public ArrayList<Driver> sellectAllDriver() throws Exception {
-        if ( driverRepo.count() == 0 ) throw new FileNotFoundException();
+        if (driverRepo.count() == 0)
+            throw new FileNotFoundException();
         return (ArrayList<Driver>) driverRepo.findAll();
     }
 
     @Override
     public ArrayList<DriverShort> sellectAllDriverShort() throws Exception {
-        if ( driverRepo.count() == 0 ) throw new FileNotFoundException();
+        if (driverRepo.count() == 0)
+            throw new FileNotFoundException();
         ArrayList<DriverShort> result = new ArrayList<DriverShort>();
         ArrayList<Driver> drivers = (ArrayList<Driver>) driverRepo.findAll();
-        
+
         for (Driver e : drivers) {
             result.add(new DriverShort(e.getIdD(), e.getLicenseNo()));
         }
@@ -46,17 +48,21 @@ public class DriverHandlerImp implements IDriverHandlerService{
 
     @Override
     public Driver sellectDriverByID(int id) throws Exception {
-        if (id < 0) throw new IOException();
+        if (id < 0)
+            throw new IOException();
         Driver result = driverRepo.findByIdD(id);
-        if ( driverRepo.count() == 0 ) throw new FileNotFoundException();
+        if (driverRepo.count() == 0)
+            throw new FileNotFoundException();
         return result;
-    } 
+    }
 
     @Override
     public void deleteDriverByID(int id) throws Exception {
-        if (id < 0) throw new IOException();
+        if (id < 0)
+            throw new IOException();
         Driver driver = driverRepo.findByIdD(id);
-        if ( driverRepo.count() == 0 ) throw new FileNotFoundException();
+        if (driverRepo.count() == 0)
+            throw new FileNotFoundException();
         ArrayList<Parcel> parcels = (ArrayList<Parcel>) parcelRepo.findByDriverIdD(id);
         parcelRepo.deleteAll(parcels);
         int idP = driver.getPerson().getIdP();
@@ -65,7 +71,8 @@ public class DriverHandlerImp implements IDriverHandlerService{
     }
 
     @Override
-    public void insertNewDriver(String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception {
+    public void insertNewDriver(String name, String surname, String personCode, String licenseNo,
+            float experienceInYears) throws Exception {
         Driver driver = driverRepo.findByLicenseNo(licenseNo);
         Person person = personRepo.findByPersonCode(personCode);
         if (driver == null) {
@@ -84,24 +91,30 @@ public class DriverHandlerImp implements IDriverHandlerService{
                 }
                 throw new InstantiationException();
             }
-        } 
+        }
         throw new InstantiationException();
     }
 
     @Override
-    public void updateDriverByID(int id, String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception {
+    public void updateDriverByID(int id, String name, String surname, String personCode, String licenseNo,
+            float experienceInYears) throws Exception {
         Driver driver = driverRepo.findByIdD(id);
-        if (driver != null) {
-            Person person = driver.getPerson();
-            person.setName(name);
-            person.setSurname(surname);
-            person.setPersonCode(personCode);
-            personRepo.save(person);
-            driver.setLicenseNo(licenseNo);
-            driver.setExperienceInYears(experienceInYears);
-            driverRepo.save(driver);
-            return;
-        }
-        throw new FileNotFoundException();
+        
+        if (driver == null)
+            throw new FileNotFoundException();
+        if ((driverRepo.findByLicenseNo(licenseNo) != null && driverRepo.findByLicenseNo(licenseNo).getIdD() != id))
+            throw new InstantiationException();
+        if (driverRepo.findByPersonIdP(personRepo.findByPersonCode(personCode).getIdP()).getIdD() != id)
+            throw new InstantiationException();
+
+        Person person = driver.getPerson();
+
+        person.setName(name);
+        person.setSurname(surname);
+        person.setPersonCode(personCode);
+        personRepo.save(person);
+        driver.setLicenseNo(licenseNo);
+        driver.setExperienceInYears(experienceInYears);
+        driverRepo.save(driver);
     }
 }

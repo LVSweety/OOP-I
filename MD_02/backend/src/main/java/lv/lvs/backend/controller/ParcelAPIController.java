@@ -2,6 +2,7 @@ package lv.lvs.backend.controller;
 
 import java.util.ArrayList;
 
+import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -89,6 +90,8 @@ public class ParcelAPIController {
                     break;
             }
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (AopInvocationException e) {
+            return new ResponseEntity<>(0, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

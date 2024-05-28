@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router'
 </script>
 
 <script>
-import DriverAdd from "../components/DriverAdd.vue";
+import DriverAdd from "../components/driver/DriverAdd.vue";
 export default {
     name: 'DriverAddView',
     components: {

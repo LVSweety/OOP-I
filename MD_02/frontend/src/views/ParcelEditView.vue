@@ -7,8 +7,8 @@
 </script>
 
 <script>
-import ParcelEdit from "../components/ParcelEdit.vue";
-import DriverEdit from "../components/ParcelEdit.vue";
+import ParcelEdit from "../components/parcel/ParcelEdit.vue";
+import DriverEdit from "../components/parcel/ParcelEdit.vue";
 export default {
     name: 'ParcelEditView',
     components: {

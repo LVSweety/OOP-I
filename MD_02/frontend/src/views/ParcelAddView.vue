@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router'
 </script>
 
 <script>
-import ParcelAdd from "../components/ParcelAdd.vue";
+import ParcelAdd from "../components/parcel/ParcelAdd.vue";
 export default {
     name: 'ParcelAddView',
     components: {

@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import DriverTable from "../components/DriverTable.vue";
+import DriverTable from "../components/driver/DriverTable.vue";
 export default {
     name: 'DriverView',
     components: {

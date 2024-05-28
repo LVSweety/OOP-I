@@ -89,35 +89,35 @@ export default {
         removeDriver(id) {
             fetch('/api/driver/remove?id=' + id)
                 .catch(err => console.log(err.message));
-            this.$router.push({ name: 'driver' })
+            this.$router.push({ name: 'Driver' })
         },
         updateDriver() {
-            this.formValidation.fault = false
-            this.formValidation.nameFault = false
-            this.formValidation.surnameFault = false
-            this.formValidation.personCodeFault = false
-            this.formValidation.licenseFault = false
-            this.formValidation.experienceFault = false
+            this.$data.formValidation.fault = false
+            this.$data.formValidation.nameFault = false
+            this.$data.formValidation.surnameFault = false
+            this.$data.formValidation.personCodeFault = false
+            this.$data.formValidation.licenseFault = false
+            this.$data.formValidation.experienceFault = false
 
             if (!/^[A-Z]{1}[a-z]+$/.test(this.driver.name)) {
-                this.formValidation.nameFault = true
-                this.formValidation.fault = true
+                this.$data.formValidation.nameFault = true
+                this.$data.formValidation.fault = true
             }
             if (!/^[A-Z]{1}[a-z]+$/.test(this.driver.surname)) {
-                this.formValidation.surnameFault = true
-                this.formValidation.fault = true
+                this.$data.formValidation.surnameFault = true
+                this.$data.formValidation.fault = true
             }
             if (!/^[0-9]{6}-[0-9]{5}$/.test(this.driver.personCode)) {
-                this.formValidation.personCodeFault = true
-                this.formValidation.fault = true
+                this.$data.formValidation.personCodeFault = true
+                this.$data.formValidation.fault = true
             }
             if (!/^[A-Z]{2}[0-9]{6}$/.test(this.driver.licenseNo)) {
-                this.formValidation.licenseFault = true
-                this.formValidation.fault = true
+                this.$data.formValidation.licenseFault = true
+                this.$data.formValidation.fault = true
             }
-            if (this.driver.experienceInYears < 0.0) {
-                this.formValidation.experienceFault = true
-                this.formValidation.fault = true
+            if (this.$data.driver.experienceInYears < 0.0) {
+                this.$data.formValidation.experienceFault = true
+                this.$data.formValidation.fault = true
             }
 
             const requestOptions = {
@@ -126,21 +126,22 @@ export default {
                 body: JSON.stringify(this.driver)
             };
 
-            if (!this.formValidation.fault) {
+            if (!this.$data.formValidation.fault) {
                 console.log("updating")
                 fetch('/api/driver/update', requestOptions)
                     .then(res => res.json())
                     .then(data => {
-                        if (data.status != 0) {
-                            this.formValidation.fault = true
+                        if (data[0].status == 0) {
+                            this.$router.push({ name: 'Driver' })
+                        } else {
+                            this.$data.formValidation.fault = true
                         }
                     })
-                    .catch(err => console.log(err.message));
-                this.$router.push({ name: 'driver' })
+                    .catch(err => {
+                        this.$data.formValidation.fault = true
+                        console.log(err.message)
+                    });
             }
-
-
-
         }
     }
 

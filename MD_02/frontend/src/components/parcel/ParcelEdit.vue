@@ -1,7 +1,11 @@
 <template>
-    <div class="parceladd">
+    <div class="parceledit">
         <form>
             <table>
+                <tr>
+                    <td>CREATED</td>
+                    <td><input type="datetime-local" required v-model='parcel.orderCreated'></td>
+                </tr>
                 <tr>
                     <td>DELIVERY</td>
                     <td><input type="datetime-local" required v-model='parcel.plannedDelivery'></td>
@@ -20,6 +24,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>PRICE</td>
+                    <td><input type="number" required v-model='parcel.price'></td>
+                    <p v-if="formValidation.orderCreatedFault">Invalid name</p>
+                </tr>
+                <tr>
                     <td>FRAGILE</td>
                     <td><input type="checkbox" required v-model='parcel.fragile'></td>
                 </tr>
@@ -36,35 +45,43 @@
                     <td>DRIVER</td>
                     <td>
                         <select v-model='parcel.idD'>
-                            <option v-for="driver in drivers" :key="driver.id" :value=driver.id>{{ driver.licenseNo }}
-                            </option>
+                            <option v-for="driver in drivers" :key="driver.id"
+                                :value=driver.id>{{ driver.licenseNo }}</option>
                         </select>
                     </td>
-
                 </tr>
             </table>
         </form>
-        <p>{{ parcel }}</p>
         <router-link to="/parcel">
             <button>CANCEL</button>
         </router-link>
-        <button @click="addParcel()">SAVE</button>
+        <button @click="updateParcel()">SAVE</button>
+        <button @click="removeParcel(parcel.idPA)">REMOVE</button>
     </div>
 </template>
 
+<script setup>
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+</script>
+
 <script>
 export default {
-    name: 'ParcelAdd',
+    name: 'ParcelEdit',
     components: {
     },
     data() {
         return {
             parcel: {
+                idPA: 0,
+                orderCreated: "2000-01-01T00:00",
                 plannedDelivery: "2000-01-01T00:00",
+                price: 0,
                 size: "S",
                 fragile: false,
                 customerCode: "",
                 idD: 0
+
             },
             customers: [],
             drivers: [],
@@ -74,8 +91,28 @@ export default {
         }
     },
     mounted() {
-        const now = new Date();
-        this.$data.parcel.plannedDelivery = now.toJSON().slice(0, 16);
+        const route = useRoute()
+        this.parcel.idPA = route.params.id
+        fetch('/api/parcel/show?id=' + this.parcel.idPA)
+            .then(res => res.json())
+            .then(data => {
+                if (data[0] == null) {
+                    this.$router.push({ name: 'PageNotFound', params: { catchAll: " " } })
+                    return;
+                }
+                this.$data.parcel.orderCreated = data[0].orderCreated.slice(0, 16);
+                this.$data.parcel.plannedDelivery = data[0].plannedDelivery.slice(0, 16);
+                this.$data.parcel.price = data[0].price
+                this.$data.parcel.size = data[0].size
+                this.$data.parcel.fragile = data[0].fragile
+                this.$data.parcel.idD = data[0].driver.idD;
+                if (data[0].privateCustomer == null) {
+                    this.$data.parcel.customerCode = data[0].companyCustomer.customerCode;
+                } else {
+                    this.$data.parcel.customerCode = data[0].privateCustomer.customerCode;
+                }
+            })
+            .catch(err => console.log(err.message));
         fetch('/api/customer/show/all')
             .then(res => res.json())
             .then(data => {
@@ -90,7 +127,12 @@ export default {
             .catch(err => console.log(err.message));
     },
     methods: {
-        addParcel() {
+        removeParcel(id) {
+            fetch('/api/parcel/remove?id=' + id)
+                .catch(err => console.log(err.message));
+            this.$router.push({ name: 'Parcel' })
+        },
+        updateParcel() {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -98,7 +140,8 @@ export default {
             };
 
             if (!this.formValidation.fault) {
-                fetch('/api/parcel/add', requestOptions)
+                console.log("updating")
+                fetch('/api/parcel/update', requestOptions)
                     .then(res => res.json())
                     .then(data => {
                         if (data.status != 0) {
@@ -106,16 +149,18 @@ export default {
                         }
                     })
                     .catch(err => console.log(err.message));
-                this.$router.push({ name: 'parcel' })
+                this.$router.push({ name: 'Parcel' })
             }
+
+
+
         }
     }
-
 }
 </script>
 
 <style>
-.driveradd p {
+.driveredit p {
     margin: 0px;
 }
 </style>

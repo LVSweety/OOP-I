@@ -1,17 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import DriverView from '../views/DriverView.vue'
 import PageNotFound from '../views/PageNotFound.vue'
+
+import DriverView from '../views/DriverView.vue'
 import DriverEditView from '../views/DriverEditView.vue'
 import DriverAddView from '../views/DriverAddView.vue'
+
 import ParcelView from '../views/ParcelView.vue'
-import CustomerView from '../views/CustomerView.vue'
 import ParcelEditView from '../views/ParcelEditView.vue'
 import ParcelAddView from '../views/ParcelAddView.vue'
+
+import CustomerView from '../views/CustomerView.vue'
+import CustomerEditView from '../views/CustomerEditView.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
   },
   {
@@ -21,7 +25,7 @@ const routes = [
   },
   {
     path: '/driver',
-    name: 'driver',
+    name: 'Driver',
     component: DriverView
   },
   {
@@ -36,7 +40,7 @@ const routes = [
   },
   {
     path: '/parcel',
-    name: 'parcel',
+    name: 'Parcel',
     component: ParcelView
   },
   {
@@ -53,6 +57,11 @@ const routes = [
     path: '/customer',
     name: 'Customer',
     component: CustomerView
+  },
+  {
+    path: '/customer/:type/:id',
+    name: 'CustomerEdit',
+    component: CustomerEditView
   }
 ]
 

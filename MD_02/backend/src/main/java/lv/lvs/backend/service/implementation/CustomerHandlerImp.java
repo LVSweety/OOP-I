@@ -31,10 +31,10 @@ public class CustomerHandlerImp implements ICustomerHandlerService{
         ArrayList<CompanyCustomer> companies = (ArrayList<CompanyCustomer>) companyRepo.findAll();
 
         for (PrivateCustomer e : privates) {
-            result.add(new CustomerShort(e.getCustomerCode()));
+            result.add(new CustomerShort(e.getIdPC(), 'P', e.getCustomerCode()));
         }
         for (CompanyCustomer e : companies) {
-            result.add(new CustomerShort(e.getCustomerCode()));
+            result.add(new CustomerShort(e.getIdCC(), 'C', e.getCustomerCode()));
         }
 
         return result;
@@ -54,14 +54,18 @@ public class CustomerHandlerImp implements ICustomerHandlerService{
 
     @Override
     public PrivateCustomer sellectPrivateCustomerByID(int id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sellectPrivateCustomerByID'");
+        if (privateRepo.count() == 0) throw new FileNotFoundException();
+        PrivateCustomer result = privateRepo.findByIdPC(id);
+        if (result == null) throw new FileNotFoundException();
+        return result;
     }
 
     @Override
     public CompanyCustomer sellectCompanyCustomerByID(int id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sellectCompanyCustomerByID'");
+        if (companyRepo.count() == 0 ) throw new FileNotFoundException();
+        CompanyCustomer result = companyRepo.findByIdCC(id);
+        if (result == null) throw new FileNotFoundException();
+        return result;
     }
 
 }

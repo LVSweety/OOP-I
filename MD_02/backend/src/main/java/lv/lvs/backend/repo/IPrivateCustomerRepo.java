@@ -8,4 +8,6 @@ public interface IPrivateCustomerRepo extends CrudRepository<PrivateCustomer, In
 
     PrivateCustomer findByCustomerCode(String customerCode);
 
+    PrivateCustomer findByIdPC(int id);
+
 }
