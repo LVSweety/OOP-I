@@ -8,13 +8,7 @@ import lv.lvs.backend.model.parcel.City;
 @Setter
 @NoArgsConstructor
 @ToString
-public class PCustomerUpdate {
-
-    @Min(1)
-    private int id;
-
-    @Size(min = 5, max = 150)
-    private String customerCode;
+public class PCustomerCreate {
 
     @NotNull
     @Pattern(regexp = "[0-9]{8}")

@@ -18,7 +18,7 @@
                 </td>
             </tr>
         </table>
-        <router-link to="/driver/add">
+        <router-link to="/customer/add">
             <button>ADD</button>
         </router-link>
     </div>

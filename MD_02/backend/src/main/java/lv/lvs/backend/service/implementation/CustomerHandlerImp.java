@@ -84,7 +84,7 @@ public class CustomerHandlerImp implements ICustomerHandlerService {
 
     @Override
     public void updatePrivateCustomerByID(int id, String customerCode, String phoneNo, String name, String surname,
-            String personCode, City city, String streetOrHouseTitle, int houseNo) throws Exception {
+            String personCode, City city, String streetHouseTitle, int houseNo) throws Exception {
 
         PrivateCustomer customer = privateRepo.findByIdPC(id);
         if (customer == null)
@@ -118,10 +118,9 @@ public class CustomerHandlerImp implements ICustomerHandlerService {
         customer.setPerson(person);
         customer.setCustomerCode(person.getIdP() + "_person_" + person.getPersonCode());
         customer.setPhoneNo(phoneNo);
-        Address existingAddress = addressRepo.findByCityAndStreetHouseTitleAndHouseNo(city, streetOrHouseTitle,
-                houseNo);
+        Address existingAddress = addressRepo.findByCityAndStreetHouseTitleAndHouseNo(city, streetHouseTitle, houseNo);
         if (existingAddress == null) {
-            Address address = new Address(city, streetOrHouseTitle, houseNo);
+            Address address = new Address(city, streetHouseTitle, houseNo);
             addressRepo.save(address);
             customer.setAddress(address);
         } else {
@@ -132,9 +131,91 @@ public class CustomerHandlerImp implements ICustomerHandlerService {
     }
 
     @Override
-    public void updateCompanyCustomerByID(int id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCompanyCustomerByID'");
+    public void updateCompanyCustomerByID(int id, String customerCode, String phoneNo, String regNo, String title,
+            City city, String streetHouseTitle, int houseNo) throws Exception {
+
+        CompanyCustomer customer = companyRepo.findByIdCC(id);
+        if (customer == null)
+            throw new FileNotFoundException();
+        if (companyRepo.findByRegNo(regNo) != null && !customer.getRegNo().matches(regNo))
+            throw new InstantiationException();
+
+        customer.setRegNo(regNo);
+        customer.setTitle(title);
+
+        customer.postProcess();
+
+        Address existingAddress = addressRepo.findByCityAndStreetHouseTitleAndHouseNo(city, streetHouseTitle, houseNo);
+        if (existingAddress == null) {
+            Address address = new Address(city, streetHouseTitle, houseNo);
+            addressRepo.save(address);
+            customer.setAddress(address);
+        } else {
+            customer.setAddress(existingAddress);
+        }
+
+        companyRepo.save(customer);
+    }
+
+    @Override
+    public void insertPrivateCustomerByID(String phoneNo, String name, String surname, String personCode, City city,
+            String streetHouseTitle, int houseNo) throws Exception {
+
+        Person person = personRepo.findByPersonCode(personCode);
+        if (person == null) {
+            person = new Person(name, surname, personCode);
+            personRepo.save(person);
+
+            Address address = addressRepo.findByCityAndStreetHouseTitleAndHouseNo(city, streetHouseTitle, houseNo);
+            if (address == null) {
+                address = new Address(city, streetHouseTitle, houseNo);
+                addressRepo.save(address);
+            }
+
+            PrivateCustomer customer = new PrivateCustomer(phoneNo, person, address);
+
+            privateRepo.save(customer);
+            return;
+        } else {
+            PrivateCustomer customer = privateRepo.findByPersonIdP(person.getIdP());
+            if (customer != null) throw new InstantiationException();
+
+            person.setName(name);
+            person.setSurname(surname);
+            personRepo.save(person);
+
+            Address address = addressRepo.findByCityAndStreetHouseTitleAndHouseNo(city, streetHouseTitle, houseNo);
+            if (address == null) {
+                address = new Address(city, streetHouseTitle, houseNo);
+                addressRepo.save(address);
+            }
+
+            customer = new PrivateCustomer(phoneNo, person, address);
+
+            privateRepo.save(customer);
+            return;
+
+        }
+    }
+
+    @Override
+    public void insertCompanyCustomerByID(String phoneNo, String regNo, String title, City city,
+            String streetHouseTitle, int houseNo) throws Exception {
+
+        CompanyCustomer customer = companyRepo.findByRegNo(regNo);
+        if (customer != null)
+            throw new InstantiationException();
+
+        Address address = addressRepo.findByCityAndStreetHouseTitleAndHouseNo(city, streetHouseTitle, houseNo);
+        if (address == null) {
+            address = new Address(city, streetHouseTitle, houseNo);
+        }
+        addressRepo.save(address);
+
+        customer = new CompanyCustomer(phoneNo, regNo, title, address);
+        customer.postProcess();
+
+        companyRepo.save(customer);
     }
 
 }

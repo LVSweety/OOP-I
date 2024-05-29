@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import lv.lvs.backend.model.communicationsInterfaces.CCustomerCreate;
 import lv.lvs.backend.model.communicationsInterfaces.CCustomerUpdate;
+import lv.lvs.backend.model.communicationsInterfaces.PCustomerCreate;
 import lv.lvs.backend.model.communicationsInterfaces.PCustomerUpdate;
 import lv.lvs.backend.service.ICustomerHandlerService;
 
@@ -62,7 +64,6 @@ public class CustomerAPIController {
             }
             return new ResponseEntity<>("[{\"status\": 0}]", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
             return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
         }
     }
@@ -73,7 +74,35 @@ public class CustomerAPIController {
             if (result.hasErrors()) {
                 return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
             } else {
-                System.out.println(customer);
+                customerService.updateCompanyCustomerByID(customer.getId(), customer.getCustomerCode(), customer.getPhoneNo(), customer.getRegNo(), customer.getTitle(), customer.getCity(), customer.getStreetHouseTitle(), customer.getHouseNo());
+            }
+            return new ResponseEntity<>("[{\"status\": 0}]", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/add/p", consumes = "application/json", produces = "application/json")
+    ResponseEntity postAddPCustomer(@Valid @RequestBody PCustomerCreate customer, BindingResult result, Model model) {
+        try {
+            if (result.hasErrors()) {
+                return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
+            } else {
+                customerService.insertPrivateCustomerByID(customer.getPhoneNo(), customer.getName(), customer.getSurname(), customer.getPersonCode(), customer.getCity(), customer.getStreetHouseTitle(), customer.getHouseNo());
+            }
+            return new ResponseEntity<>("[{\"status\": 0}]", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/add/c", consumes = "application/json", produces = "application/json")
+    ResponseEntity postAddCCustomer(@Valid @RequestBody CCustomerCreate customer, BindingResult result, Model model) {
+        try {
+            if (result.hasErrors()) {
+                return new ResponseEntity<>("[{\"status\": 1}]", HttpStatus.BAD_REQUEST);
+            } else {
+                customerService.insertCompanyCustomerByID(customer.getPhoneNo(), customer.getRegNo(), customer.getTitle(), customer.getCity(), customer.getStreetHouseTitle(), customer.getHouseNo());
             }
             return new ResponseEntity<>("[{\"status\": 0}]", HttpStatus.OK);
         } catch (Exception e) {

@@ -10,4 +10,6 @@ public interface ICompanyCustomerRepo extends CrudRepository<CompanyCustomer, In
 
     CompanyCustomer findByIdCC(int id);
 
+    CompanyCustomer findByRegNo(String regNo);
+
 }

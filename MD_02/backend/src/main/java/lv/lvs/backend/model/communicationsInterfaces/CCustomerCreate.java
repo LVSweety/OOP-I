@@ -8,32 +8,19 @@ import lv.lvs.backend.model.parcel.City;
 @Setter
 @NoArgsConstructor
 @ToString
-public class PCustomerUpdate {
-
-    @Min(1)
-    private int id;
-
-    @Size(min = 5, max = 150)
-    private String customerCode;
+public class CCustomerCreate {
 
     @NotNull
     @Pattern(regexp = "[0-9]{8}")
     private String phoneNo;
 
-	@NotNull
-	@Size(min = 2, max = 20)
-	@Pattern(regexp = "[A-Z]{1}[a-z]+")
-	private String name;
-	
-	@NotNull
-	@Size(min = 2, max = 40)
-	@Pattern(regexp = "[A-Z]{1}[a-z]+") 
-	private String surname;
+    @NonNull
+    @Pattern(regexp = "LV[0-9]{11}")
+    private String regNo;
 
-	@NotNull
-	@Size(min = 2, max = 40)
-	@Pattern(regexp = "[0-9]{6}-[0-9]{5}") 
-	private String personCode;
+    @NonNull
+    @Size(min = 5, max = 100)
+    private String title;
 
     @NotNull
     private City city;

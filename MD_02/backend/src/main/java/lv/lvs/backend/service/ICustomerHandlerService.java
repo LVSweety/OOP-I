@@ -19,9 +19,13 @@ public interface ICustomerHandlerService {
 
     public abstract CompanyCustomer sellectCompanyCustomerByID(int id) throws Exception;
 
-    public abstract void updatePrivateCustomerByID(int id, String customerCode, String phoneNo, String name, String surname, String personCode, City city, String streetOrHouseTitle, int houseNo) throws Exception;
+    public abstract void updatePrivateCustomerByID(int id, String customerCode, String phoneNo, String name, String surname, String personCode, City city, String streetHouseTitle, int houseNo) throws Exception;
 
-    public abstract void updateCompanyCustomerByID(int id) throws Exception;
+    public abstract void updateCompanyCustomerByID(int id, String customerCode, String phoneNo, String regNo, String title, City city, String streetHouseTitle, int houseNo) throws Exception;
+
+    public abstract void insertPrivateCustomerByID(String phoneNo, String name, String surname, String personCode, City city, String streetHouseTitle, int houseNo) throws Exception;
+
+    public abstract void insertCompanyCustomerByID(String phoneNo, String regNo, String title, City city, String streetHouseTitle, int houseNo) throws Exception;
 
     // public abstract void deleteDriverByID(int id) throws Exception;
 }

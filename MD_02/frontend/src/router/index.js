@@ -12,6 +12,7 @@ import ParcelAddView from '../views/ParcelAddView.vue'
 
 import CustomerView from '../views/CustomerView.vue'
 import CustomerEditView from '../views/CustomerEditView.vue'
+import CustomerAddView from '../views/CustomerAddView.vue'
 const routes = [
   {
     path: '/',
@@ -62,6 +63,11 @@ const routes = [
     path: '/customer/:type/:id',
     name: 'CustomerEdit',
     component: CustomerEditView
+  },
+  {
+    path: '/customer/add',
+    name: 'CustomerAdd',
+    component: CustomerAddView
   }
 ]
 

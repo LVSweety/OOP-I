@@ -1,5 +1,4 @@
 package lv.lvs.backend.model.communicationsInterfaces;
-import jakarta.persistence.Column;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -14,7 +13,7 @@ public class CCustomerUpdate {
     @Min(1)
     private int id;
 
-    @Column(name = "CustomerCode")
+    @Size(min = 5, max = 150)
     private String customerCode;
 
     @NotNull
