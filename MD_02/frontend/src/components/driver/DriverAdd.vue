@@ -106,7 +106,7 @@ export default {
                         }
                     })
                     .catch(err => console.log(err.message));
-                this.$router.push({ name: 'driver' })
+                this.$router.push({ name: 'Driver' })
             }
 
 
