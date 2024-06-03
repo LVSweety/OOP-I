@@ -48,10 +48,10 @@ public class DriverHandlerImp implements IDriverHandlerService {
 
     @Override
     public Driver sellectDriverByID(int id) throws Exception {
-        if (id < 0)
+        if (id < 0 || driverRepo.count() == 0)
             throw new IOException();
         Driver result = driverRepo.findByIdD(id);
-        if (driverRepo.count() == 0)
+        if (result == null)
             throw new FileNotFoundException();
         return result;
     }

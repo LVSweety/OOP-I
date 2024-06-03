@@ -18,4 +18,5 @@ public interface IDriverHandlerService {
     public abstract void insertNewDriver(String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception;
 
     public abstract void updateDriverByID(int id, String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception;
+
 }
